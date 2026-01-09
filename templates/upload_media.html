@@ -1,0 +1,42 @@
+<-- upload_media.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload MP3 and JPG</title>
+    <style>
+        body{background-color: darkred; color: white; font-family: Arial, sans-serif;font-size: 30px;}
+         a{font-size: 30px; color:orange;}
+         .fs{font-size: 30px}
+    </style>
+</head>
+<body>
+    <h1>Upload Media</h1>
+<a href ="/">HOME</a>
+<p>Upload an mp3 to create an avatar:<br/>
+static/Wav2Lip-master/sample_data/use.mp3<br/>
+Upload a *.jpg  to create an avatar to:<br/>
+static/Wav2Lip-master/sample_data/use.jpg
+<p>
+files:    {{mp3_files}}
+<a href="{{ url_for('make_avatar') }}">EXECUTE Make Avatar</a>
+<form method="POST" action="/upload_media" enctype="multipart/form-data">
+    <label for="audio">Choose an MP3 from /static/results:</label><br>
+    <select name="audio_filename" required>
+        {% for mp3 in mp3_files %}
+            <option value="{{ mp3 }}">{{ mp3 }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="image">Upload JPG Image:</label><br>
+    <input type="file" name="image" accept=".jpg,.jpeg" required><br><br>
+
+    <button type="submit">Upload</button>
+</form>
+                <h3>Last Video Result:</h3>
+                <video controls width="400">
+                    <source src="static/temp_exp/avatarX.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+</body>
+</html>

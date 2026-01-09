@@ -1,0 +1,56 @@
+<!-- avatar.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Captioner & Video Creator</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: darkred; color: orange; }
+        .container { display: flex; flex-wrap: wrap; gap: 30px; }
+        .form-section, .display-section { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .form-section { flex: 1; min-width: 350px; }
+        .display-section { flex: 2; min-width: 400px; text-align: center;}
+        h1, h2 { color: yellow; }
+        label { display: block; margin-top: 10px; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="number"], input[type="color"], input[type="file"], textarea, select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea { min-height: 100px; resize: vertical; }
+        button {
+            background-color: #007bff; color: white; padding: 10px 15px;
+            border: none; border-radius: 4px; cursor: pointer; font-size: 16px;
+            margin-right: 10px; margin-top: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        button.secondary { background-color: #6c757d; }
+        button.secondary:hover { background-color: #545b62; }
+        img, video { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; margin-top:10px;}
+        .error { color: red; font-weight: bold; margin-bottom: 15px; background-color: #ffebee; padding: 10px; border: 1px solid red; border-radius: 4px;}
+        .success { color: green; font-weight: bold; margin-bottom: 15px; }
+        .parameter-group { margin-bottom: 20px; padding: 15px; border: 1px solid #eee; border-radius: 5px; background-color: #fdfdfd;}
+        a{font-size: 25px; color: orange; }
+        .notice{font-size: 30px;color:green;}
+    </style>
+</head>
+<body>
+    <h1>Image Captioner & Video Creator</h1>
+<a href="/">HOME</a><br/>    
+<a href="/get_images">View Images</a><br/>
+<a href="/join_four">join_four</a><br/>
+<a href="/upload_media">Upload Avatar Files</a><br/>
+
+
+                <hr style="margin: 20px 0;">
+                <h3>Video Result:</h3>
+                <video controls width="400">
+                    <source src="static/temp_exp/avatarX.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+</body>
+</html>

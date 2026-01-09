@@ -1,0 +1,44 @@
+what is the aprox value of an oil tanker inventory
+The approximate value of an oil tanker’s inventory depends on three main things:
+Type of tanker (capacity)
+Type of oil carried
+Current oil price per barrel
+I’ll give you realistic ballpark numbers so you can reason about scale without needing live market data.
+Typical Oil Tanker Capacities
+Tanker Type	Capacity (barrels)
+Handysize	250,000 – 500,000
+Aframax	500,000 – 800,000
+Suezmax	~1,000,000
+VLCC (Very Large Crude Carrier)	~2,000,000
+ULCC (Ultra Large)	3,000,000 – 4,000,000
+Most headlines and geopolitical stories involve VLCCs.
+Oil Price Assumption (Rounded)
+To keep it simple, let’s assume:
+$70–$90 per barrel (typical modern range)
+I’ll show numbers using $80/barrel as a midpoint.
+Inventory Value by Tanker Type
+🛢️ Aframax (~700,000 barrels)
+700,000 × $80 ≈ $56 million
+🛢️ Suezmax (~1,000,000 barrels)
+1,000,000 × $80 ≈ $80 million
+🛢️ VLCC (~2,000,000 barrels)
+2,000,000 × $80 ≈ $160 million
+🛢️ ULCC (4,000,000 barrels)
+4,000,000 × $80 ≈ $320 million
+Real-World Rule of Thumb
+An oil tanker typically carries between $50 million and $300+ million worth of oil.
+That’s inventory only, not counting:
+The ship itself ($80–$150M new)
+Insurance
+Charter contracts
+Hedging
+Futures pricing
+Fun (and slightly terrifying) Perspective 😌
+A single VLCC tanker can carry:
+More value than a large bank branch
+Comparable to a major tech company’s data center
+Enough energy to power a small country for days
+Which is why oil tankers are:
+Heavily insured
+Constantly tracked
+Strategically important in wars and trade routes
