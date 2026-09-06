@@ -60,7 +60,7 @@ import spacy
 
 # External Libraries
 import yt_dlp
-from balacoon_tts import TTS
+#from balacoon_tts import TTS
 
 # --------------- stitch ---------------------------
 # Flask Imports
@@ -6533,7 +6533,7 @@ def create_search_database():
         )
     """)
 
-    history_file = os.path.expanduser("~/.bash_history")
+    history_file = os.path.expanduser("~/.TEXT")
     ic("Bash history file:", history_file)
 
     if not os.path.exists(history_file):
@@ -6611,6 +6611,7 @@ create_search_database()
 '''
 
 # Function to get a database connection
+'''
 def get_db_conn():
     conn = sqlite3.connect("history.db")
     conn.row_factory = sqlite3.Row
@@ -6638,7 +6639,7 @@ def search_history():
             mk_temp(data[0])  # Create a temporary file for each found result
 
     return render_template("search_history.html", history_results=history_results)
-
+'''
 
 # Load the search for the tempfile
 @app.route("/search_text_file", methods=["POST", "GET"])
@@ -7260,7 +7261,7 @@ def memory_graph():
 
 # Load your Balacoon TTS model
 # tts = TTS("static/en_us_cmuartic_jets_cpu.addon")
-tts = TTS("/home/jack/hidden/en_us_hifi_jets_cpu.addon")
+#tts = TTS("/home/jack/hidden/en_us_hifi_jets_cpu.addon")
 
 
 @app.route("/balacoon", methods=["GET", "POST"])
@@ -9157,7 +9158,7 @@ def add_novel_audio():
 
 
 # tts = TTS("static/en_us_cmuartic_jets_cpu.addon")
-tts = TTS("/home/jack/hidden/en_us_hifi_jets_cpu.addon")
+#tts = TTS("/home/jack/hidden/en_us_hifi_jets_cpu.addon")
 # if 'static/novel_audio_mp3' create it
 
 
@@ -10090,7 +10091,7 @@ def add_shrink_title_image(video_path):
 # Directories setup
 image_directory = "static/novel_images"
 output_directory = "static/temp_exp"
-final_output_directory = "/mnt/HDD500/collections/vids/"
+final_output_directory = "static/collections/vids/"
 os.makedirs(image_directory, exist_ok=True)
 os.makedirs(output_directory, exist_ok=True)
 os.makedirs(final_output_directory, exist_ok=True)
@@ -10365,7 +10366,7 @@ def upload_img():
 # ----------------------------------------
 
 # Initialize Balacoon TTS with the predetermined model and voice
-tts = TTS("/home/jack/hidden/en_us_hifi_jets_cpu.addon")
+#tts = TTS("/home/jack/hidden/en_us_hifi_jets_cpu.addon")
 OUTPUT_DIR = "static/text2audio5"
 
 # Ensure the output directory exists
@@ -10373,7 +10374,7 @@ if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
 
 # Select the predetermined speaker (for simplicity, the first speaker is used here)
-PREDETERMINED_SPEAKER = tts.get_speakers()[3]
+#PREDETERMINED_SPEAKER = tts.get_speakers()[3]
 
 
 # Route to process a large text file
@@ -12022,6 +12023,7 @@ create_necessary_folders()
 
 
 # --- Balacoon TTS Initialization Function ---
+'''
 def initialize_balacoon_tts(model_path=BALACOON_MODEL_PATH, speaker_name_to_set=None):
     global \
         tts_instance, \
@@ -12123,6 +12125,7 @@ def initialize_balacoon_tts(model_path=BALACOON_MODEL_PATH, speaker_name_to_set=
 # Initialize Balacoon TTS at application startup.
 # This will set selected_speaker to the first available one by default.
 initialize_balacoon_tts()
+'''
 """
 @app.route('/favicon.ico')
 def favicon():
@@ -16061,7 +16064,6 @@ a {font-size:25px;color:orange;}
 
 if __name__ == "__main__":
     create_caption_db()
-    init_db()
     # Start the GC monitoring thread independently
     start_gc_monitor()
     directory = "static/TEXT"
