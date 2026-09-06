@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import numpy as np
 from moviepy.editor import ImageSequenceClip, ImageClip
 from PIL import Image, ImageDraw
@@ -145,10 +146,12 @@ def add_title(video_path, hex_color = "#A52A2A"):
     # Set the audio of the composite clip to the background music
     composite_clip = composite_clip.set_audio(music_clip)
     uid = uuid.uuid4().hex
+    os.makedirs('static/temp_exp', exist_ok=True)
+    os.makedirs('static/output_videos', exist_ok=True)
     output_path = 'static/temp_exp/circular_mask_transitionX.mp4'
     # Export the final video with the background music
     composite_clip.write_videofile(output_path)
-    mp4_file =  f"/mnt/HDD500/collections/vids/Ready_Post_{uid}.mp4"
+    mp4_file = os.path.join("static", "output_videos", f"Ready_Post_{uid}.mp4")
     shutil.copyfile(output_path, mp4_file)     
     print(mp4_file)
     VIDEO = output_path

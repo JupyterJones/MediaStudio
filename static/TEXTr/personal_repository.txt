@@ -1,0 +1,122 @@
+Yes, Jack — those version numbers are correct as a matching set for PyTorch 2.11:
+
+torch==2.11.0
+torchvision==0.26.0
+torchaudio==2.11.0
+torchsde==0.2.6
+
+PyTorch's official compatibility instructions specifically pair torch 2.11.0 + torchvision 0.26.0 + torchaudio 2.11.0, and provide a CPU-only wheel repository for them.
+
+For your CPU-only offline repository, I would download them like this on a machine with internet:
+
+mkdir -p ~/python_packages/torch_cpu_2.11.0
+
+python -m pip download \
+    --dest ~/python_packages/torch_cpu_2.11.0 \
+    --index-url https://download.pytorch.org/whl/cpu \
+    torch==2.11.0 \
+    torchvision==0.26.0 \
+    torchaudio==2.11.0
+
+Then download torchsde and its dependencies as well:
+
+python -m pip download \
+    --dest ~/python_packages/torch_cpu_2.11.0 \
+    torchsde==0.2.6
+
+For the offline machine:
+
+python -m pip install --no-index \
+    --find-links ~/python_packages/torch_cpu_2.11.0 \
+    torch==2.11.0 \
+    torchvision==0.26.0 \
+    torchaudio==2.11.0 \
+    torchsde==0.2.6
+
+One important detail ⚠️
+
+Make sure you download these using the same Python version and Linux architecture as the machine where you intend to install them. PyTorch wheels are large and platform/Python-version specific.
+
+After downloading, you can see exactly what you've collected with:
+
+ls -lh ~/python_packages/torch_cpu_2.11.0
+
+That folder becomes your own little offline PyTorch repository. Copy the entire folder to your LAN server or Google Drive and pip can install from it with no internet access.
+
+so if i built it on ubuntu 24 it may not work on ubuntu 20
+
+Yes, Jack — it may work, but you should not assume it will.
+
+The main issue isn't usually Ubuntu 24 vs Ubuntu 20 by itself. The important compatibility factors are:
+
+    Python version — a wheel built for Python 3.12 won't install on Python 3.8.
+
+    CPU architecture — both of yours are likely x86_64, which is good.
+
+    glibc compatibility — wheels built for newer systems can sometimes require libraries unavailable on Ubuntu 20.
+
+    Compiled dependencies — PyTorch, NumPy, and similar packages can have binary compatibility requirements.
+
+For example, if you download a wheel on Ubuntu 24 for:
+
+cp312
+
+and your Ubuntu 20 server uses Python 3.8, pip will reject it outright.
+The safest approach
+
+Build/download your offline repository using the oldest system you intend to support—in your case, Ubuntu 20.04. Packages compatible with Ubuntu 20 are generally more likely to work on Ubuntu 24 than the reverse.
+
+Also check the Python versions on both machines:
+
+python3 --version
+uname -m
+
+For your PyTorch repository, I would ideally maintain separate folders if the Python versions differ:
+
+python_packages/
+├── ubuntu20-python38/
+│   └── torch_cpu/
+└── ubuntu24-python312/
+    └── torch_cpu/
+
+One subtle correction to my previous answer: don't think of pip download as building PyTorch. Usually it downloads precompiled wheels. The compatibility tag on those wheels determines where they can be installed.
+
+If you show me the output of python3 --version from both computers, I can tell you exactly whether one offline repository can serve both machines or whether you should keep two.
+
+sounds like actually using a docker may be safest 
+
+Yes, Jack — Docker is probably the safest and cleanest solution for what you're trying to do. 🐳
+
+Instead of worrying whether a PyTorch wheel downloaded on Ubuntu 24 will install correctly on Ubuntu 20, Docker gives you a controlled environment containing the exact Python version, libraries, and package versions you tested.
+
+For example, your application could have a container containing:
+
+Ubuntu/Debian base
+    ↓
+Python version you choose
+    ↓
+torch CPU
+torchvision CPU
+torchaudio CPU
+torchsde
+MoviePy 1.0.3
+    ↓
+Your application
+
+You can build the image once on a machine with internet, then transfer the entire Docker image to the Ubuntu 20 machine and run it without downloading Python packages there.
+
+The basic offline transfer mechanism is:
+
+docker save -o my_app.tar my_app:latest
+
+Copy my_app.tar to the other machine, then:
+
+docker load -i my_app.tar
+
+That avoids Python wheel compatibility problems because the application runs with the libraries packaged inside the container.
+
+One caveat: the Docker engine itself still needs to be installed on the target machine, and CPU architecture must match. But for two x86_64 Linux machines on your LAN, that's generally straightforward.
+
+For your CPU-only AI/video projects, I think Docker is particularly useful because you can preserve a known-working environment. Once you get one of those complicated combinations of PyTorch, Diffusers, MoviePy, and supporting libraries working, you can freeze it and move it around without spending another afternoon fighting dependency versions. 😄
+
+

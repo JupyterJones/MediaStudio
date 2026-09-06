@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import numpy as np
 from moviepy.editor import ImageSequenceClip, ImageClip, ColorClip, CompositeVideoClip, AudioFileClip, VideoFileClip
 from PIL import Image, ImageDraw
@@ -142,9 +143,11 @@ def add_title(video_path, hex_color="#A52A2A"):
 
     # Save the final video
     uid = uuid.uuid4().hex
-    output_path = f'static/temp_exp/square_transitionX.mp4'
+    os.makedirs('static/temp_exp', exist_ok=True)
+    os.makedirs('static/output_videos', exist_ok=True)
+    output_path = 'static/temp_exp/square_transitionX.mp4'
     composite_clip.write_videofile(output_path)
-    shutil.copyfile(output_path, f'/mnt/HDD500/collections/vids/square_mask_transitionX_{uid}.mp4')
+    shutil.copyfile(output_path, f'static/output_videos/square_mask_transitionX_{uid}.mp4')
 
     return output_path
 

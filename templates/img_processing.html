@@ -2,11 +2,12 @@
 <html>
 
 <head>
-    <title>Image Blending</title>
+    <title>Image Processing | Media Studio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themed.css') }}">
 
     <style>
         body {
-            background-color: #2C2C2C;
+            background-color: var(--bg-card);
             color: white;
             font-family: Arial, sans-serif;
         }
@@ -115,7 +116,7 @@
     </style>
 </head>
 
-<body style="background-color: rgb(156, 23, 23);">
+<body>
     <center>
         <h1 style="color: orange;">FlaskArchitect's - img_processing.html</h1>
 <a href="{{ url_for('mk_novel') }}" class="refresh-button2">mk_novel</a>&nbsp;&nbsp;&nbsp;

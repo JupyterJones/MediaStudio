@@ -154,7 +154,9 @@ def add_title_image(video_path, hex_color="#A52A2A"):
 
     uid = uuid.uuid4().hex
     output_path = "static/temp_exp/verticalX.mp4"
-    final_copy = f"/mnt/HDD500/collections/vids/Ready_Post_{uid}.mp4"
+    os.makedirs("static/temp_exp", exist_ok=True)
+    os.makedirs("static/output_videos", exist_ok=True)
+    final_copy = os.path.join("static", "output_videos", f"Ready_Post_{uid}.mp4")
 
     ic("Rendering final video", output_path)
     composite.write_videofile(output_path)

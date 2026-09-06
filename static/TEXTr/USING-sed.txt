@@ -1,0 +1,422 @@
+https://www.gnu.org/manual/manual.html
+
+Removing leading nubers and spaces in a $: history>USING-sed.txt command.
+sed -i -E 's/^[[:space:]]*[0-9]+[[:space:]]+//' USING-sed.txt
+
+grep -rl Look for the string "GenMedia AI Creative Studio" . (The period means this directory the -r means and subdirectories)
+
+grep -rl "GenMedia AI Creative Studio" . | xargs sed -i 's/GenMedia AI Creative Studio/FlaskArchitect MediaStudio/g'
+
+grep -rl "/static" . | xargs sed -i 's/\/static/static/g'
+grep -rlZ "/static" . | xargs -0 sed -i 's|/static|static|g'
+
+
+ls -1v /home/jack/Desktop/ONESTEP/outputs/upscaled/seq_*_20260810_04*_upscaled.png | sed "s/^/file
+
+
+
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "s=1024x1536,unsharp=3:3:0.5:3:3:0.5,scale=512x768" -c:v libx264 -pix_fmt yuv420p -y 1tr_enlargerescale.mp4
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "scale=1024x1536,unsharp=5:5:0.8:5:5:0.0,scale=512x768" -c:v libx264 -pix_fmt yuv420p -y LS_enlargerescale.mp4
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "scale=1024:1536:flags=lanczos,unsharp=5:5:0.8:5:5:0.0,scale=512:768:flags=lanczos" -c:v libx264 -pix_fmt yuv420p -crf 18 1tr_enlargerescale.mp4
+
+ls -1t *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "s=1024x1536,unsharp=3:3:0.5:3:3:0.5,scale=512x768" -c:v libx264 -pix_fmt yuv420p -y LS_enlargerescale.mp4
+ls -1t *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "scale=1024x1536,unsharp=3:3:0.5:3:3:0.5,scale=512x768" -c:v libx264 -pix_fmt yuv420p -y LS_enlargerescale.mp4
+ls -1t *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "scale=1024:1536:flags=lanczos,unsharp=5:5:0.8:5:5:0.0,scale=512:768:flags=lanczos" -c:v libx264 -pix_fmt yuv420p -crf 18 LS_enlargerescale.mp4
+
+
+
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -c:v libx264 -pix_fmt yuv420p LS_video.mp4
+
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p LS_unsharpvideo.mp4
+
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "s=1024x1536,unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p -y LS_unsharpvideo.mp4
+
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "scale=1024x1536,unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p -y LS_unsharpvideo.mp4
+
+ls -1t *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p LS_reverse timevideo.mp4
+
+ls -1t *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p LS_reversetimevideo.mp4
+
+
+
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p FirstImageFirst.mp4
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p rightFirstImageFirst.mp4
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p FirstBust.mp4
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p FirstFlight.mp4
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p Ancient.mp4
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p zoominoriginal.mp4
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p zoomin002.mp4
+ls -1tr *.png | sed "s/^/file '/;s/$/'/" > list.txt && ffmpeg -y -r 6 -f concat -safe 0 -i list.txt -vf "unsharp=3:3:0.5:3:3:0.5" -c:v libx264 -pix_fmt yuv420p zoomin2.mp4
+
+sudo apt install -y sshfs && mkdir -p /home/jack/Desktop/Server && sudo sed -i '\|/home/jack/Desktop/Server|d' /etc/fstab && echo 'jack@192.168.1.30:/home/jack /home/jack/Desktop/Server fuse.sshfs _netdev,users,idmap=user,IdentityFile=/home/jack/.ssh/id_ed25519,allow_other,default_permissions,x-systemd.automount,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 0 0' | sudo tee -a /etc/fstab >/dev/null && sudo systemctl daemon-reload && sudo systemctl restart remote-fs.target
+
+sudo sed -i 's/^#user_allow_other/user_allow_other/' /etc/fuse.conf && sudo systemctl daemon-reload && sudo umount -l /home/jack/Desktop/Server 2>/dev/null || true && sudo systemctl restart remote-fs.target
+
+sudo sed -i 's|IdentityFile=/home/jack/.ssh/id_ed25519|IdentityFile=/home/jack/.ssh/id_rsa|' /etc/fstab && sudo systemctl daemon-reload && sudo umount -lf /home/jack/Desktop/Server 2>/dev/null || true && sudo systemctl restart remote-fs.target
+sudo umount -lf /home/jack/Desktop/Server 2>/dev/null; sudo sed -i '\|/home/jack/Desktop/Server|d' /etc/fstab; mkdir -p /home/jack/Desktop/Server; sshfs -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 jack@192.168.1.30:/home/jack /home/jack/Desktop/Server
+grep -rl "GenMedia AI Creative Studio" . | xargs sed -i 's/GenMedia AI Creative Studio/FlaskArchitect MediaStudio/g'
+grep -rl "DocuMind Enterprise RAG" . | xargs sed -i 's/DocuMind Enterprise RAG/FlaskArchitectKnowledge RAG/g'
+grep -rl "CogniFlask AI Assistant" . | xargs sed -i 's/CogniFlask AI Assistant/Notebooklm_lite AI RAG/g'
+grep -rl "VisionFlow Studio" . | xargs sed -i 's/VisionFlow Studio/ComicBook VideoMaker/g'
+grep -rl "Automated Computer Vision & Real-time Video Analytics Pipeline" . | xargs sed -i 's/Automated Computer Vision & Real-time Video Analytics Pipeline/Composition, Animation, Audio, Stable Diffusion Image Generation and Video/g'
+grep -rl "NeuralSync Distributed Workers" . | xargs sed -i 's/NeuralSync Distributed Workers/OllamaModel Studio Learn Test & Train Small Models/g'
+grep -rl "OllamaModel Studio Learn Test NeuralSync Distributed Workers Train Small Models" . | xargs sed -i 's/OllamaModel Studio Learn Test NeuralSync Distributed Workers Train Small Models/Ollama ModelStudio Learn Test Train Small Models/g'
+grep -rl "Production Flask \& AI Systems" . | xargs sed -i 's/Production Flask \& AI Systems/Production Flask \& AI Audio Visual Systems/g'
+grep -rl "Building Intelligent Web Systems with Python \& Flask" . | xargs sed -i 's/Building Intelligent Web Systems with Python \& Flask./Building Intelligent Web and Desktop Systems with Python \& Flask/g'
+grep -rl "Building Intelligent Web Systems with Python \& Flask." . | xargs sed -i 's/Building Intelligent Web Systems with Python \& Flask./Building Intelligent Web and Desktop Systems with Python \& Flask./g'
+grep -rl "Building Intelligent Web Applications with Python & Flask" . | xargs -r sed -i 's/Building Intelligent Web Applications
+grep -rl "Building Intelligent Web Applications with Python & Flask" . | xargs -r sed -i 's/Building Intelligent Web Applications with Python & Flask/Building Intelligent Web and Desktop Systems with Python \& Flask/g'
+grep -rl "GenMedia AI Creative Studio" . | xargs sed -i 's/GenMedia AI Creative Studio/FlaskArchitect MediaStudio/g'
+grep -rl "DocuMind Enterprise RAG" . | xargs sed -i 's/DocuMind Enterprise RAG/FlaskArchitectKnowledge RAG/g'
+grep -rl "CogniFlask AI Assistant" . | xargs sed -i 's/CogniFlask AI Assistant/Notebooklm_lite RAG/g'
+grep -rl "Automated Computer Vision \& Real-time Video Analytics Pipeline" . | xargs sed -i 's/Automated Computer Vision \& Real-time Video Analytics Pipeline/Page, Animation, Audio, Stable Diffusion Image Generation and Video/g'
+grep -rl "GenMedia AI Creative Studio" . | xargs sed -i 's/GenMedia AI Creative Studio/FlaskArchitect MediaStudio/g' /
+grep -rl "DocuMind Enterprise RAG" . | xargs sed -i 's/DocuMind Enterprise RAG/FlaskArchitectKnowledge RAG/g' /
+grep -rl "CogniFlask AI Assistant" . | xargs sed -i 's/CogniFlask AI Assistant/Notebooklm_lite RAG/g' /
+grep -rl "Automated Computer Vision \& Real-time Video Analytics Pipeline" . | xargs sed -i 's/Automated Computer Vision \& Real-time Video Analytics Pipeline/Page, Animation, Audio, Stable Diffusion Image Generation and Video/g'
+grep -rl "Automated Computer Vision & Real-time Video Analytics Pipeline" . | xargs sed -i 's/Automated Computer Vision & Real-time Video Analytics Pipeline/Page, Animation, Audio, Stable Diffusion Image Generation and Video/g'
+grep -rl "GenMedia AI Creative Studio" . | xargs sed -i 's/GenMedia AI Creative Studio/FlaskArchitect MediaStudio/g'
+grep -rl "DocuMind Enterprise RAG" . | xargs sed -i 's/DocuMind Enterprise RAG/FlaskArchitectKnowledge RAG/g'
+grep -rl "CogniFlask AI Assistant" . | xargs sed -i 's/CogniFlask AI Assistant/Notebooklm_lite RAG/g'
+grep -rl "\/static" . | xargs sed -i 's/\/static\static/g'
+grep -rl "\/static" . | xargs sed -i 's/\/static/static/g'
+sed 's/.*scp//g' scp.txt > new_file.txt
+sed -i '/^$/!d; s/^.*scp//new_file.txt'
+sed -i '/^$/!d' new_file.txt
+sed '/^$/!d' scp.txt
+sed '/^$/!d' scp.txt >test.txt
+sed -i '/^$/d; s/^.*scp//scp.txt'
+sed 's/[^scp].*$/scp/' scp.txt > scp_new.txt
+sed 's/^[^scp]*scp//g' scp.txt > new_file.txt
+sed 's/^.*scp.*$/scp/g' scp.txt > new_file.txt
+sed 's/^.* scp.*$/ scp/g' scp.txt > output.txt
+sed '/^\s*$/d' SCP.txt > SCP_no_numbers.txt
+sed '/^\s*$/d' scp.txt > SCP_no_numbers.txt
+sed -i -E 's/^[[:space:]]*[0-9]+[[:space:]]+//' scp.txt
+======================================
+~/Desktop$ ls --help
+Usage: ls [OPTION]... [FILE]...
+List information about the FILEs (the current directory by default).
+Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -a, --all                  do not ignore entries starting with .
+  -A, --almost-all           do not list implied . and ..
+      --author               with -l, print the author of each file
+  -b, --escape               print C-style escapes for nongraphic characters
+      --block-size=SIZE      with -l, scale sizes by SIZE when printing them;
+                             e.g., '--block-size=M'; see SIZE format below
+
+  -B, --ignore-backups       do not list implied entries ending with ~
+  -c                         with -lt: sort by, and show, ctime (time of last
+                             change of file status information);
+                             with -l: show ctime and sort by name;
+                             otherwise: sort by ctime, newest first
+
+  -C                         list entries by columns
+      --color[=WHEN]         color the output WHEN; more info below
+  -d, --directory            list directories themselves, not their contents
+  -D, --dired                generate output designed for Emacs' dired mode
+  -f                         list all entries in directory order
+  -F, --classify[=WHEN]      append indicator (one of */=>@|) to entries WHEN
+      --file-type            likewise, except do not append '*'
+      --format=WORD          across -x, commas -m, horizontal -x, long -l,
+                             single-column -1, verbose -l, vertical -C
+
+      --full-time            like -l --time-style=full-iso
+  -g                         like -l, but do not list owner
+      --group-directories-first
+                             group directories before files;
+                             can be augmented with a --sort option, but any
+                             use of --sort=none (-U) disables grouping
+
+  -G, --no-group             in a long listing, don't print group names
+  -h, --human-readable       with -l and -s, print sizes like 1K 234M 2G etc.
+      --si                   likewise, but use powers of 1000 not 1024
+  -H, --dereference-command-line
+                             follow symbolic links listed on the command line
+      --dereference-command-line-symlink-to-dir
+                             follow each command line symbolic link
+                             that points to a directory
+
+      --hide=PATTERN         do not list implied entries matching shell PATTERN
+                             (overridden by -a or -A)
+
+      --hyperlink[=WHEN]     hyperlink file names WHEN
+      --indicator-style=WORD
+                             append indicator with style WORD to entry names:
+                             none (default), slash (-p),
+                             file-type (--file-type), classify (-F)
+
+  -i, --inode                print the index number of each file
+  -I, --ignore=PATTERN       do not list implied entries matching shell PATTERN
+  -k, --kibibytes            default to 1024-byte blocks for file system usage;
+                             used only with -s and per directory totals
+
+  -l                         use a long listing format
+  -L, --dereference          when showing file information for a symbolic
+                             link, show information for the file the link
+                             references rather than for the link itself
+
+  -m                         fill width with a comma separated list of entries
+  -n, --numeric-uid-gid      like -l, but list numeric user and group IDs
+  -N, --literal              print entry names without quoting
+  -o                         like -l, but do not list group information
+  -p, --indicator-style=slash
+                             append / indicator to directories
+  -q, --hide-control-chars   print ? instead of nongraphic characters
+      --show-control-chars   show nongraphic characters as-is (the default,
+                             unless program is 'ls' and output is a terminal)
+
+  -Q, --quote-name           enclose entry names in double quotes
+      --quoting-style=WORD   use quoting style WORD for entry names:
+                             literal, locale, shell, shell-always,
+                             shell-escape, shell-escape-always, c, escape
+                             (overrides QUOTING_STYLE environment variable)
+
+  -r, --reverse              reverse order while sorting
+  -R, --recursive            list subdirectories recursively
+  -s, --size                 print the allocated size of each file, in blocks
+  -S                         sort by file size, largest first
+      --sort=WORD            sort by WORD instead of name: none (-U), size (-S),
+                             time (-t), version (-v), extension (-X), width
+
+      --time=WORD            select which timestamp used to display or sort;
+                               access time (-u): atime, access, use;
+                               metadata change time (-c): ctime, status;
+                               modified time (default): mtime, modification;
+                               birth time: birth, creation;
+                             with -l, WORD determines which time to show;
+                             with --sort=time, sort by WORD (newest first)
+
+      --time-style=TIME_STYLE
+                             time/date format with -l; see TIME_STYLE below
+  -t                         sort by time, newest first; see --time
+  -T, --tabsize=COLS         assume tab stops at each COLS instead of 8
+  -u                         with -lt: sort by, and show, access time;
+                             with -l: show access time and sort by name;
+                             otherwise: sort by access time, newest first
+
+  -U                         do not sort; list entries in directory order
+  -v                         natural sort of (version) numbers within text
+  -w, --width=COLS           set output width to COLS.  0 means no limit
+  -x                         list entries by lines instead of by columns
+  -X                         sort alphabetically by entry extension
+  -Z, --context              print any security context of each file
+      --zero                 end each output line with NUL, not newline
+  -1                         list one file per line
+      --help        display this help and exit
+      --version     output version information and exit
+
+The SIZE argument is an integer and optional unit (example: 10K is 10*1024).
+Units are K,M,G,T,P,E,Z,Y,R,Q (powers of 1024) or KB,MB,... (powers of 1000).
+Binary prefixes can be used, too: KiB=K, MiB=M, and so on.
+
+The TIME_STYLE argument can be full-iso, long-iso, iso, locale, or +FORMAT.
+FORMAT is interpreted like in date(1).  If FORMAT is FORMAT1<newline>FORMAT2,
+then FORMAT1 applies to non-recent files and FORMAT2 to recent files.
+TIME_STYLE prefixed with 'posix-' takes effect only outside the POSIX locale.
+Also the TIME_STYLE environment variable sets the default style to use.
+
+The WHEN argument defaults to 'always' and can also be 'auto' or 'never'.
+
+Using color to distinguish file types is disabled both by default and
+with --color=never.  With --color=auto, ls emits color codes only when
+standard output is connected to a terminal.  The LS_COLORS environment
+variable can change the settings.  Use the dircolors(1) command to set it.
+
+Exit status:
+ 0  if OK,
+ 1  if minor problems (e.g., cannot access subdirectory),
+ 2  if serious trouble (e.g., cannot access command-line argument).
+
+GNU coreutils online help: <https://www.gnu.org/software/coreutils/>
+Full documentation <https://www.gnu.org/software/coreutils/ls>
+or available locally via: info '(coreutils) ls invocation'
+(venv) jack@jack-A520MHP:~/Desktop$ 
+
+
+======================================
+~/Desktop$ sed --help
+Usage: sed [OPTION]... {script-only-if-no-other-script} [input-file]...
+
+  -n, --quiet, --silent
+                 suppress automatic printing of pattern space
+      --debug
+                 annotate program execution
+  -e script, --expression=script
+                 add the script to the commands to be executed
+  -f script-file, --file=script-file
+                 add the contents of script-file to the commands to be executed
+  --follow-symlinks
+                 follow symlinks when processing in place
+  -i[SUFFIX], --in-place[=SUFFIX]
+                 edit files in place (makes backup if SUFFIX supplied)
+  -l N, --line-length=N
+                 specify the desired line-wrap length for the `l' command
+  --posix
+                 disable all GNU extensions.
+  -E, -r, --regexp-extended
+                 use extended regular expressions in the script
+                 (for portability use POSIX -E).
+  -s, --separate
+                 consider files as separate rather than as a single,
+                 continuous long stream.
+      --sandbox
+                 operate in sandbox mode (disable e/r/w commands).
+  -u, --unbuffered
+                 load minimal amounts of data from the input files and flush
+                 the output buffers more often
+  -z, --null-data
+                 separate lines by NUL characters
+      --help     display this help and exit
+      --version  output version information and exit
+
+If no -e, --expression, -f, or --file option is given, then the first
+non-option argument is taken as the sed script to interpret.  All
+remaining arguments are names of input files; if no input files are
+specified, then the standard input is read.
+
+GNU sed home page: <https://www.gnu.org/software/sed/>.
+```
+GNU sed
+
+sed (stream editor) is a non-interactive command-line text editor.
+
+# Example: delete the 4th line in a file
+$ sed '4d' input.txt > output.txt
+
+# Example: replace every occurrence of 'hello' with 'world' on lines 10-20
+$ sed '10,20s/hello/world/' input.txt > output.txt
+
+sed is commonly used to filter text, i.e., it takes text input, performs some operation (or set of operations) on it, and outputs the modified text. sed is typically used for extracting part of a file using pattern matching or substituting multiple occurrences of a string within a file. 
+```
+General help using GNU software: <https://www.gnu.org/gethelp/>.
+E-mail bug reports to: <bug-sed@gnu.org>.
+(venv) jack@jack-A520MHP:~/Desktop$ 
+
+
+======================================
+cee "awk"
+grep -rHn '#' --include=\*.py * | awk '{print $0 "\n"}'
+sudo lsof +L1 |awk '{print $2}' | tail -n +2 | xargs -r sudo kill -9
+find $(pwd) -type f -name "*.mp4" -exec ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 {} \; | awk '$1 < 6'
+sudo lsof +L1 | awk '$7 > 52428800 {print $2}' | sort -u | xargs -r sudo kill -9
+'find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/beautiful/Lexica_files/512x768_beautiful
+ip addr show docker0 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1
+ 9738  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '\$1==512 && \$2==768 { print \$3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/backgrounds/Lexica_files/512x768_Lexica
+find . -type f -name "*.jpg" -exec identify -format "%f %wx%h\n" {} \; | awk '$2=="512x512" {print $1}' | xargs -I{} mv {} square/
+awk -F') ' '!/^[0-9]/ {if (NF>1) print $2; else print $0}' output.txt > cleanoutput.txt
+mkdir 512x768/ && find . -type f -iname "*.jpg" -exec identify -format '%w %h %i\n' {} \; | awk '$1==512 && $2==768 {print $3}' | xargs -I{} mv {} 512x768/
+ 9779  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/beautiful/Lexica_files/512x768_beautiful
+find . -type f -name "*.jpg" -exec identify -format "%f %wx%h\n" {} \; | awk '=="512x512" {print }' | xargs -I{} mv {} square/
+echo 'hello'| awk '{print /bin/bash n}' 'world'
+grep -rHn '#' * | awk '{print $0 "\n"}'
+echo "history | grep ffmpeg | awk '{\$1=\"\"; print \$0}' | sed 's/^\s*//' >ffmpeg.commands"
+LANG=C snap list --all | awk '/disabled/{print $1, $2}' | while read snapname revision; do     echo "Removing $snapname revision $revision";     sudo snap remove "$snapname" --revision="$revision"; done
+echo 'hello'| awk '{print /bin/bash n}' echo 'world'
+sed 's/\x1b\[[0-9;]*m//g' bash_history.txt | awk '!seen[$0]++' > bash_history_nodups.txt
+history | grep ffmpeg | awk '{$1=""; print $0}' | sed 's/^\s*//' >ffmpeg.commands
+ 9708  NOTE -i "find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '\$1==512 && \$2==768 { print \$3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/store-lexica/512x768"
+find /home/jack -type f -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" -exec identify -format "%w %h %i\n" {} \; | awk '$1 > 200 || $2 > 4000' >~/Desktop/LARGE.images
+hostname -I | awk '{print $1}'
+#    awk '{if ($2 == $3) print $1}': Compares the
+awk -v file="$file" '{printf "Found in %s, %s\n", file, $0}' >> SEARCH.txt
+ip addr show docker | grep "inet\b" | awk '{print $2}' | cut -d/ -f1
+awk '{sub(/^[0-9]+[ \t]+/, ""); print}' ~/cleaned_history.txt >veryclean
+grep -rHn 'clone' --include=\*.ipynb DATABASE | awk '{print /bin/bash n}'
+grep -rHn 'clone' --include=\*.ipynb /mnt/HDD500/ | awk '{print $0}'
+awk '$1 ~ /^[0-9]+$/' /home/jack/Desktop/Flask_Make_Art/static/TEXT/formatted.txt > cleaned_formatted.txt
+ 9707  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/store-lexica/512x768
+USB_UUID="57834747-d677-466b-8da4-2c238052facf"; MOUNT_POINT="/mnt/myusb"; if ! mount | grep -q "$MOUNT_POINT"; then     echo "Mounting USB...";     sudo mount UUID=$USB_UUID $MOUNT_POINT; fi; echo "Checking filesystem..."; sudo fsck -n $(blkid -U $USB_UUID | awk '{print $1}') > /dev/null; total_size=$(du -shc ~/Desktop/* 2>/dev/null | tail -n 1 | awk '{print $1}'); echo "Total size to copy: $total_size"; read -p "Continue with backup? (y/n) " yn; [ "$yn" = "y" ] && rsync -av --no-links --partial --progress --exclude='Google-Drive/' ~/Desktop/ $MOUNT_POINT/Desktop/
+sed '/^$/d' /home/jack/Desktop/Flask_Make_Art/static/TEXT/formatted.txt | awk '{$1=$1; print}' > cleaned_formatted.txt
+awk '{gsub(/\\n/, "\n")}1' index_upload.txt > tmp && mv tmp yourfile.txt
+ 8818  awk -i inplace 'NF' All_Desktop_ipynb.txt
+LANG=C snap list --all | awk '/disabled/{print $1, $2}' | while read snapname revision; do     sudo snap remove "$snapname" --revision="$revision" || true; done
+find /path/to/search -type f -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" -exec identify -format "%w %h %i\n" {} \; | awk '$1 > 4000 || $2 > 4000'
+NOTE -i "awk '{gsub(/\\n/, \"\n\")}1' index_upload.txt > tmp && mv tmp yourfile.txt"
+sed 's/\x1b\[[0-9;]*m//g' bash_history.txt | awk '!seen[$0]++' > nodups.txt
+ 2962  GMIC -i "find . -name '*.jpg' | awk 'BEGIN{ a=0 }{ printf \"mv \"%s\" %05d.jpg\n\", $0, a++ }' | bash
+ 9756  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/backgrounds/Lexica_files/512x768_Lexica_files
+find . -type f -name "*.jpg" -exec identify -format "%f %wx%h\n" {} \; | awk '$2 != "512x768"{print $1}' | xargs -I{} rm {}
+mkdir -p squares && find . -type f -exec identify -format "%i %w %h\n" {} \; | awk '{if ($2 == $3) print $1}' | xargs -I {} mv {} squares/
+ 2960  GMIC -i "find . -name '*.jpg' | awk 'BEGIN{ a=0 }{ printf "mv \"%s\" %05d.jpg\n", $0, a++ }' | bash
+history | grep ffmpeg | awk '{$1=""; print $0}' | sed 's/^\s*//' >ffmpeg.commands2
+mkdir -p squares && find . -type f -exec file {} \; | grep -E 'JPEG|PNG|GIF' | awk '{print $1,$3}' | awk -F, '{if($1 == $3) print $2}' | xargs -I {} mv {} squares/
+ 3092  ls *.jpg | sort | awk 'BEGIN{ a=0 }{ printf "mv %s %05d.jpg\n", $0, a++ }' | bash
+awk -F') ' '/home/jack/.vscode/extensions/ms-python.python-2024.6.0/python_files/printEnvVariablesToFile.py[0-9]/ {if (NF>1) print $2; else print $0}' output.txt > output_-digits.txt
+mkdir -p squares && find . -type f -exec file {} \; | grep -E 'JPEG|PNG|GIF' | awk -F: '{print $1,$2}' | awk '{split($2, a, ","); if (a[1] == a[2]) print $1}' | xargs -I {} mv {} squares/
+sudo snap list --all | awk '/disabled/{print $1, $2}' | while read snapname revision; do     sudo snap remove "$snapname" --revision="$revision"; done
+grep -rHn '#' --include=\*.py * | awk '{print $0 "\n"}' >Python_hash_comments.txt
+ 9752  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/backgrounds/Lexica_files/512x768_Lexica
+ 2955  | awk 'BEGIN{ a=0 }{ printf "mv \"%s\" %04d.jpg\n", $0, a++ }' \
+ 9714  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/art_nouveau/Lexica_files/512x768_design
+ 9748  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/art_nouveau/backgrounds/Lexica_files/512x768_design
+ffmpeg -i final_output3.mp4 -t $(ffprobe -i final_output3.mp4 -show_entries format=duration -v quiet -of csv="p=0" | awk '{print $1-0.6}') -c copy -y AI_Creates_Hello_from_Gloxnia.mp4
+find /home/jack -type f -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" -exec identify -format "%w %h %i\n" {} \; | awk '$1 > 300 || $2 > 4000' >~/Desktop/LARGE.images
+awk '{for(i=1;i<=NF;i++) if($i ~ /^ffmpeg/) {print substr($0, index($0,$i)); break}}' unverified_ffmpeg_command.txt > output.txt
+find . -type f -name "*.jpg" -exec identify -format "%f %wx%h" {} \; | awk '=="512x512" {print }' | xargs -I{} mv {} square/
+awk '!seen[$0]++' clean_bash_history.txt > bash_history_nodups.txt
+ 9740  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==640 && $2==640 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/art_nouveau/backgrounds/Lexica_files/640x640_nouveau
+grep -rHn 'seamlessClone' --include=\*.ipynb /mnt/HDD500/ | awk '{print $0}'
+ 9769  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/pop-art/Lexica_files/512x768_pop-art
+grep -rHn 'clone' --include=\*.ipynb /mnt/HDD500/ | awk '{print /bin/bash n}'
+duration=$(ffprobe -v error -show_entries duration=default:stream=v -of default=noprint_wrappers=1:nokey=1 latina_01.mp4 | awk '{print $1}')
+grep -rHn '#' --include=\*.py DATABASE | awk '{print $0 "\n"}' >Python_hash_comments.txt
+find . -maxdepth 1 -type f -iname "*.jpg" -exec identify -format '%w %h %i\n' {} + | awk '$1==640 && $2==640 {print $3}' | xargs cp -t 640x640/
+awk -v file="$file" '{printf "Found in %s, %s\n", file, $0}' >> SEARCH.txt; done
+find $(pwd) -type f -iname "*.jpg" -exec identify -format '%w %h %i\n' {} \; | awk '$1==$2 {print $3}' | xargs -I{} mv {} square/
+awk -v file="$file" '{gsub(/\\n/, "\n"); printf "Found in %s, %s\n", file, $0}' >> SEARCH.txt
+find /path/to/directory -type f -name "*.mp4" -exec ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 {} \; | awk '$1 < 6'
+ 2958  find . -name '*.jpg' | awk 'BEGIN{ a=0 }{ printf "mv \"%s\" %05d.jpg\n", $0, a++ }' | bash
+NOTE -i "grep -rHn '#' --include=\*.py DATABASE | awk '{print $0 "\n"}' >Python_hash_comments.txt"
+USB_UUID="57834747-d677-466b-8da4-2c238052facf"; MOUNT_POINT="/mnt/myusb"; if ! mount | grep -q "$MOUNT_POINT"; then     echo "Mounting USB...";     sudo mount UUID=$USB_UUID $MOUNT_POINT; fi; echo "Checking filesystem..."; sudo fsck -n $(blkid -U $USB_UUID | awk '{print $1}') > /dev/null; total_size=$(du -shc ~/Desktop/* 2>/dev/null | tail -n 1 | awk '{print $1}'); echo "Total size to copy: $total_size"; read -p "Continue with backup? (y/n) " yn; [ "$yn" = "y" ] && rsync -av --no-links --partial --progress --exclude='GoogleDrive/' ~/Desktop/ $MOUNT_POINT/Desktop/
+sudo snap remove --purge $(snap list --all | awk '/disabled/{print $1}' | sort -u)
+timestamps=$(ffmpeg -hide_banner -i "$VIDEO_FILE" -vf "select='not(mod(n,50))',showinfo" -an -f null - 2>&1 | awk '/^frame_pts/ {print $2}')
+echo 'hello' awk '{print /bin/bash n}' 'world'
+find . -type f -iname "*.jpg" -exec identify -format '%w %h %i\n' {} \; | awk '$1==1024 && $2==1536 {print $3}' | xargs -I{} mv {} 512x768/
+ 9706  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==756 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/store-lexica/512x768
+mkdir square && find $(pwd) -type f -iname "*.jpg" -exec identify -format '%w %h %i\n' {} \; | awk '$1==$2==1536 {print $3}' | xargs -I{} mv {} square/
+ 3091  ls *.JPG | sort | awk 'BEGIN{ a=0 }{ printf "mv %s %05d.jpg\n", $0, a++ }' | bash
+awk 'NF == 7' cleaned_formatted.txt > final_formatted.txt
+awk -v file="$file" '{printf "Found in %s, %s\n", file, $0}'; done
+'awk -F') ' '/home/jack/.vscode/extensions/ms-python.python-2024.6.0/python_files/printEnvVariablesToFile.py[0-9]/ {if (NF>1) print $2; else print $0}' input.txt > output.txt
+ 9762  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/Lexica_files/512x768_Lexica_files
+mkdir square && find $(pwd) -type f -iname "*.jpg" -exec identify -format '%w %h %i\n' {} \; | awk '$1==$2 {print $3}' | xargs -I{} mv {} square/
+ 2777  awk '/^function/,/^}/ { print }' ~/.bashrc
+ 9721  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/modern-ideas/Lexica_files/512x768_modern-ideas
+ 9749  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/art_nouveau/Lexica_files/512x768_design
+find /home/jack -type f -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" -exec identify -format "%w %h %i\n" {} \; | awk '$1 > 4000 || $2 > 4000' >>~/Desktop/LARGE.images
+ffmpeg -i final_output3.mp4 -t $(ffprobe -i final_output3.mp4 -show_entries format=duration -v quiet -of csv="p=0" | awk '{print $1-0.4}') -c copy -y AI_Creates_Hello_from_Gloxnia.mp4
+checksum=$(md5sum "$file" | awk '{print $1}')
+xdotool getwindowgeometry 41943084 | awk '/Position:/ {print $2,$3}'
+ 9783  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/beautiful/Lexica_files/512x768_beautiful
+echo "history | grep ffmpeg | awk '{$1=\"\"; print $0}' | sed 's/^\s*//' >ffmpeg.commands"
+ffmpeg -i final_output3.mp4 -t $(ffprobe -i final_output3.mp4 -show_entries format=duration -v quiet -of csv="p=0" | awk '{print $1-0.5}') -c copy -y AI_Creates_Hello_from_Gloxnia.mp4
+ 9761  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/backgrounds/Lexica_files/512x768_Lexica_files
+sudo snap list --all | awk '/disabled/{print $1, $3}' | while read snapname revision; do sudo snap remove "$snapname" --revision="$revision"; done
+NOTE -i "history | grep ffmpeg | awk '{\$1=\"\"; print \$0}' | sed 's/^\s*//' >ffmpeg.commands"
+awk '{gsub(/\\n/, "\n")}1' yourfile.txt > tmp && mv tmp yourfile.txt
+Ram TRX FLIP IN THE AIR HITTING COP #trx #ram #srt #srt8 #trackhawk #dodge #1000hp #hellcat #fastcar "
+ffplay -i /home/jack/Desktop/HDD500/complete-videos/input.mp4 -window_title "Video Overlay" -noborder -vf "crop=iw:ih,scale=250:250,setsar=1/1,format=rgba,colorkey=0x000000:0.01:0.1" -x $(expr $(xdotool getdisplaygeometry | awk '{print $1}') - 250) -y $(expr $(xdotool getdisplaygeometry | awk '{print $2}') - 250) & sleep 2 && xdotool search --onlyvisible --name "Video Overlay" windowraise %@ && xdotool search --onlyvisible --name "Video Overlay" windowactivate %@
+find . -maxdepth 1 -type f -iname "*.jpg" -exec identify -format '%w %h %i\n' {} + | awk '$1==640 && $2==640 {print $3}' | xargs mv -t 640x640/
+awk -v file="$file" >>SEARCH.txt; done
+find . -type f -iname "*.jpg" -exec identify -format '%w %h %i\n' {} \; | awk '$1==1028 && $2==1536 {print $3}' | xargs -I{} mv {} 512x768/
+mkdir -p squares && find . -type f -exec identify -format '%i %w %h\n' {} \; | awk '{if ($2 == $3) print $1}' | xargs -I {} mv {} squares/
+ss -tunp | grep ESTAB | awk '{print $5}' | cut -d':' -f1 | sort | uniq
+ 9773  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/pop-art/Lexica_files/512x768_pop-art
+echo 'hello'| awk '{print /bin/bash n}'| echo 'world'
+awk -F') ' '{if (NF>1) print $2; else print $0}' input.txt > output.txt
+ 9792  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/princess_files/512x768_princess_files
+ 9790  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/princess_files/512x768_princess_files
+history | grep ffmpeg | awk '{$1=""; print $0}' | sed 's/^\s*//'
+ 3090  find . -name '*.jpg' | awk 'BEGIN{ a=0 }{ printf "mv "%s" %05d.jpg\n", /bin/bash, a++ }' | bash
+find /home/jack -type f -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" -exec identify -format "%w %h %i\n" {} \; | awk '$1 > 4000 || $2 > 4000'
+find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==$2 { print $3 }' | xargs -I{} mv {} square/
+find . -maxdepth 1 -type f -iname "*.jpg" -exec identify -format '%[fx:(w==h)] %i\n' {} + | awk '$1==1 {print $2}' | xargs mv -t 640x640/
+total_size=$(du -shc ~/Desktop/* 2>/dev/null | tail -n 1 | awk '{print $1}'); echo "Total size to copy: $total_size"; read -p "Continue with backup? (y/n) " yn; [ "$yn" = "y" ] && rsync -av --no-links --partial --progress ~/Desktop/ /mnt/myusb/Desktop/
+ 9739  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/art_nouveau/backgrounds/Lexica_files/512x768_nouveau
+ 9742  find . -name '*.jpg' -exec identify -format '%w %h %f\n' {} \; | awk '$1==512 && $2==768 { print $3 }' | xargs -I{} mv {} /home/jack/Downloads/lexica/brave/art_nouveau/backgrounds/Lexica_files/512x768_design
+
+======================================
+======================================

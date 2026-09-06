@@ -1,0 +1,176 @@
+sudo apt install openssh-server -y
+rsync -avh --delete ~/Desktop/ComfyUI/ "/run/user/1000/gvfs/smb-share:server=jack-desktop.local,share=usbssd/ComfyUI/"
+rsync -avh --delete --inplace --no-whole-file ~/Desktop/ComfyUI/ "/run/user/1000/gvfs/smb-share:server=jack-desktop.local,share=usbssd/ComfyUI/"
+npm run dev:server
+npm run dev:server
+ffmpeg -ss 180 -i mic-record.mp4 'Project Creating a Flying Video Using a ComfyUI Server With Roll and Pitch.mp4'
+ffmpeg -ss 180 -i mic_record.mp4 'Project Creating a Flying Video Using a ComfyUI Server With Roll and Pitch.mp4'
+cat server.js
+grep cat server.js |grep  returm
+grep cat server.js |grep  return
+grep cat server.js 
+cat server.js | grep authCode
+cat server.ts |grep 3000
+sub sd_server.py
+python sd_server.py
+python sd_server.py
+python sdserver.py --model /home/jack/Desktop/Comfy-UI/models/checkpoints/
+python sd_server.py
+cd ../server
+cd ../SERVER
+sub server.ts
+python use_server.py
+python use_server2.py
+sub use_server2.py
+python use_server.py
+sub server.ts
+sub use_server.py
+python use_server.py
+sub use_server.py
+python use_server.py
+sub use_server.py
+python use_server.py
+sub use_server.py
+python use_server.py
+ls /home/jack/Desktop/SERVER/models/checkpoints/motion/animatediffLCMMotion_v10.ckpt
+basth testmotionserver
+bash testmotionserver
+bash testmotionserver.sh
+curl -X POST http://localhost:5000/api/load-motion   -H "Content-Type: application/json"   -d '{"motion":"~/Desktop/SERVER/models/motion/animatediffLCMMotion_v10.ckpt"}'
+curl -X POST http://localhost:5000/api/load-motion   -H "Content-Type: application/json"   -d '{"motion":"/home/jack/Desktop/SERVER/models/motion/animatediffLCMMotion_v10.ckpt"}'
+ckpt = torch.load('~/Desktop/SERVER/models/motion/animatediffLCMMotion_v10.ckpt', map_location='cpu')
+ls ~/Desktop/SERVER/models/motion/animatediffLCMMotion_v10.ckpt
+ckpt = torch.load('/home/jack/Desktop/SERVER/models/motion/animatediffLCMMotion_v10.ckpt', map_location='cpu')
+curl -X POST http://localhost:5000/api/load-motion   -H "Content-Type: application/json"   -d '{"motion":"/home/jack/Desktop/SERVER/models/motion/animatediffLCMMotion_v10.ckpt"}'
+ls /home/jack/Desktop/SERVER/models/checkpoints/motion/animatediffLCMMotion_v10.ckpt
+ls /home/jack/Desktop/SERVER/models/motion/animatediffLCMMotion_v10.ckpt
+'/home/jack/Desktop/SERVER/models/base/dreamshaper_8LCM.safetensors',
+timeout 300 python motion_server2.py --model ~/Desktop/SERVER/models/base --port 5000
+python motion_server2.py --model ~/Desktop/SERVER/models/base --port 5000
+cp -r /home/jack/animatediff-config/* /home/jack/Desktop/SERVER/models/motion/animatediffLCMMotion_v10/
+mkdir -p /home/jack/Desktop/SERVER/models/motion/animatediff_diffusers
+cp /home/jack/animatediff-config/* /home/jack/Desktop/SERVER/models/motion/animatediff_diffusers/
+mv -r /home/jack/animatediff-config/* /home/jack/Desktop/SERVER/models/motion/animatediffLCMMotion_v10/
+cp -r /home/jack/animatediff-config/* /home/jack/Desktop/SERVER/models/motion/animatediffLCMMotion_v10/
+mkdir /home/jack/Desktop/SERVER/models/motion/animatediffLCMMotion_v10/
+cp -r /home/jack/animatediff-config/* /home/jack/Desktop/SERVER/models/motion/animatediffLCMMotion_v10/
+ls -la /home/jack/Desktop/SERVER/models/base/comiccraftLCM_beta4/
+pkill motion_server2.py
+pkill -f motion_server2.py
+cd SERVER
+cat testmotionserver.py
+cat testmotionserver.sh
+cat testmotionserver.sh >testbak.sh
+pkill -f agy_server.py
+puython agy_server.py
+python agy_server.py
+bash startserver
+pkill -f good_server.py
+pkill -f good_sd_server.py
+bash startserver
+bash startserver
+bash startserver
+bash startserver
+bash startserver
+history | grep server
+history | grep python | grep server
+http-server
+sudo apt install node-http-server
+sudo apt install node-http-server
+http-server
+npm install -g http-server
+http-server
+http-server --help
+http-server --help
+http-server -h
+python -m http.server 8000
+python -m http.server 8000
+bash startserver
+bash startserver
+python index_server.py
+python agy_server.py
+bash startserver
+cp /home/jack/Desktop/SERVER/Flask_app2.py .
+cp /home/jack/Desktop/SERVER/frontend.html .
+cp /home/jack/Desktop/SERVER/animatediffLCMMotion_v10.ckpt .
+bash startserver
+python -m http.server 8000
+bash startserver
+cp /home/jack/Desktop/server/good_sd_server.py oldserver.py
+pkill -f good_sd_server.py
+python oldserver.py
+bash oldserver.py
+bash oldserver
+bash startserver
+Pause/venv/bin/python good_sd_server.py --model /home/jack/Desktop/Comfy-
+bash startserver
+python loop_sd_server.py
+sub startserver
+bash loopserver
+sub loop_sd_server.py
+python loop_sd_server.py
+python loop_sd_server.py
+sub loop_sd_server.py
+python loop_sd_server.py
+sub loop_sd_server.py
+python loop_sd_server.py
+python loop_sd_server.py
+cp loop_sd_server.py loop_768_server.py
+sub loop_768_server.py
+python loop_768_server.py
+pkill -f start_comfy_server.sh
+bash start_comfy_server.sh
+bash start_comfy_server.sh
+bash start_comfy_server.sh
+bash startserver
+bash startserver
+python sdserver.py
+sub sdserver.py
+python loop_384x512_server.py
+bash startserver
+python good_sd_server.py
+bash startserver
+ls startserver
+startserver
+python good_sd_server.py
+python good_sd_server.py /home/jack/Desktop/Comfy-UI/models/checkpoints/
+python good_sd_server.py /home/jack/Desktop/Comfy-UI/models/checkpoints/xenoxtcLCMEditionArtToon_v10.safetensors
+cd server
+bash startserver
+sub SDserver.py
+python good_sd_server.py --model /home/jack/Desktop/Comfy-UI/models/checkpoints/xenoxtcLCMEditionArtToon_v10.safetensors
+SDserver.py
+sub SDserver.py
+python SDserver.py
+python sdserver.py
+python index_server.py
+python good_sd_server.py
+python good_sd_server.py
+python good_sd_server.py
+bash startserver
+bash startserver
+startserver
+bash startserver
+python3 server.py
+bash tarclone.sh server
+bash tarclone.sh SERVER
+echo "ssh -o ServerAliveInterval=60 root@217.21.78.160">>VPS
+sudo apt install -y sshfs && mkdir -p /home/jack/Desktop/Server && sudo sed -i '\|/home/jack/Desktop/Server|d' /etc/fstab && echo 'jack@192.168.1.30:/home/jack /home/jack/Desktop/Server fuse.sshfs _netdev,users,idmap=user,IdentityFile=/home/jack/.ssh/id_ed25519,allow_other,default_permissions,x-systemd.automount,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 0 0' | sudo tee -a /etc/fstab >/dev/null && sudo systemctl daemon-reload && sudo systemctl restart remote-fs.target
+sudo sed -i 's/^#user_allow_other/user_allow_other/' /etc/fuse.conf && sudo systemctl daemon-reload && sudo umount -l /home/jack/Desktop/Server 2>/dev/null || true && sudo systemctl restart remote-fs.target
+sudo umount -lf /home/jack/Desktop/Server 2>/dev/null; sudo systemctl stop home-jack-Desktop-Server.automount 2>/dev/null; sudo systemctl stop home-jack-Desktop-Server.mount 2>/dev/null; sudo rm -rf /home/jack/Desktop/Server; sudo mkdir -p /home/jack/Desktop/Server; sudo chown jack:jack /home/jack/Desktop/Server; sudo systemctl daemon-reload; sudo mount /home/jack/Desktop/Server
+ssh -v jack@192.168.1.30 2>&1 | grep -E "Offering public key|Server accepts key|identity file"
+sudo sed -i 's|IdentityFile=/home/jack/.ssh/id_ed25519|IdentityFile=/home/jack/.ssh/id_rsa|' /etc/fstab && sudo systemctl daemon-reload && sudo umount -lf /home/jack/Desktop/Server 2>/dev/null || true && sudo systemctl restart remote-fs.target
+sudo umount -lf /home/jack/Desktop/Server 2>/dev/null; sudo sed -i '\|/home/jack/Desktop/Server|d' /etc/fstab; mkdir -p /home/jack/Desktop/Server; sshfs -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 jack@192.168.1.30:/home/jack /home/jack/Desktop/Server
+mkdir -p /home/jack/Desktop/VPS && sshfs -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 root@151.241.99.129:/ /home/jack/Desktop/VPS
+html-server
+html_server
+ssh -o ServerAliveInterval=60 root@217.21.78.160
+cd /home/jack/Desktop/Server/Desktop/APPLICATION/new_app/static/production2/production2/
+cd /home/jack/Desktop/Server/Desktop/APPLICATION/new_app/static/production2/old-1/
+python3 -m http.server 8080
+python3 -m http.server 8090
+python3 -m http.server 8090
+python3 -m http.server 8080
+python3 -m http.server 8080
+ssh -o ServerAliveInterval=60 root@151.241.99.129
+SEE server

@@ -5,7 +5,7 @@
     <title>Image Blending</title>
     <style>
         body {
-            background-color: #2C2C2C;
+            background-color: var(--bg-card);
             color: white;
             font-family: Arial, sans-serif;
         }
@@ -79,7 +79,7 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background: rgb(156, 23, 23);
+            background: var(--bg-card);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -104,7 +104,7 @@
     </style>
 </head>
 
-<body style="background-color: rgb(156, 23, 23);">
+<body >
     <center>
         <h1 style="color: orange;">FlaskArchitect's Video Processing mk_videos.html</h1>
         <a href="{{ url_for('index') }}" class="refresh-button2">HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a

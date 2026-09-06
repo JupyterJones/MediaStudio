@@ -1,0 +1,182 @@
+Stable diffusion prompt token limits with interpolation
+=======================================================
+
+[user]
+I know stable diffusion limits the size of you prompts to 77 tokens, How does this effect when you use interpolation. Those prompts are usually longer yet i never get a warning?
+
+[CLAUDE]
+I'm looking at how Stable Diffusion 1.5's CLIP text encoder handles the 77-token limit, including the special BOS/EOS tokens that reduce actual text capacity to 75 tokens. The question is about why no warning appears when prompts exceed this length and how the tokenizer handles the overflow.
+
+The tokenizer in diffusers truncates silently by default without raising an exception, though it does emit a logging warning from the HuggingFace transformers library when truncation occurs. However, this warning might not be visible if the user's logging level is configured to suppress warnings, or if they're using a CPU-only setup where logging is handled differently. The StableDiffusionPipeline explicitly sets truncation=True with max_length=77, and while there's code to check and warn about this, the warning only surfaces if you manually inspect the tokenizer's model_max_length property rather than being raised as an error during normal pipeline execution. Latent interpolation doesn't require long text since it works per-image, but prompt interpolation is trickier—each prompt gets independently truncated to 77 tokens before their embeddings are created, then those embeddings are interpolated token-by-token. This means if your start and end prompts have different lengths or word orders, the token positions may not align well, so interpolating position-wise embeddings can cause mismatches even though it tends to work reasonably in practice since Stable Diffusion's architecture handles it decently.
+
+The reason the user doesn't see truncation warnings is that most implementations truncate silently without raising exceptions—the transformers library might log a warning, but it goes through Python's logging system which can be filtered or hidden depending on configuration, so it's easy to miss. For longer prompts, they could manually implement chunking to create multiple 77-token embeddings and concatenate them, though that's not how interpolation itself works—interpolation uses separate prompts encoded independently, not concatenated ones.
+
+I should structure the response to explain CLIP tokenizer mechanics, why truncation happens without fanfare, how it specifically interacts with their interpolation workflow, and give practical tips like checking token counts directly with the tokenizer or using a chunk-and-average approach for longer content.Good catch — this trips up a lot of people because the truncation happens *silently* in most pipelines rather than raising anything you'd notice.
+
+## Why you don't see a warning
+
+SD1.5's text encoder is CLIP ViT-L/14, and its tokenizer has a hard `model_max_length` of 77. That's 75 actual text tokens plus a `<|startoftext|>` and `<|endoftext|>` token bookending them.
+
+When you call the tokenizer with a prompt longer than that, the standard behavior (in `transformers`/`diffusers`) is:
+
+```python
+text_inputs = tokenizer(
+    prompt,
+    padding="max_length",
+    max_length=tokenizer.model_max_length,  # 77
+    truncation=True,
+    return_tensors="pt",
+)
+```
+
+`truncation=True` means it just chops off everything past token 77 — no exception, no error. Diffusers *does* try to warn you about this: internally it decodes the untruncated version and compares it to the truncated one, and if they differ it calls `logger.warning(...)` telling you what got cut off. But that's a call into Python's standard `logging` module, not a `print()` or an exception. If you (or your serving layer) haven't called `logging.basicConfig()` to attach a handler, or if the root logger's level is above `WARNING`, that message just gets swallowed — it fires, but nothing renders it anywhere you'd see. That's almost certainly what's happening in your setup, especially if you're doing custom lower-level model loading rather than going through the full diffusers pipeline (which sets up its own logger).
+
+You can check this yourself without depending on the warning at all:
+
+```python
+tokens = tokenizer(prompt, truncation=False)["input_ids"]
+print(len(tokens))  # if > 77, it's getting silently cut
+```
+
+## How this actually affects interpolation
+
+This matters differently depending on which kind of interpolation you're doing:
+
+**Latent interpolation** (slerp between two noise latents / intermediate denoising states) — not affected at all by prompt length. That's happening in latent space; the text conditioning is just held fixed (or also interpolated separately, see below). Truncation only touches the text→embedding step.
+
+**Prompt/embedding interpolation** (encoding prompt A and prompt B separately, then slerp/lerp between their embeddings before cross-attention) — this is where it gets subtle. Each prompt is tokenized and truncated to 77 tokens *independently*, so you get two tensors both shaped `[77, 768]` (for SD1.5's CLIP). The interpolation then happens position-by-position across those two `[77, 768]` tensors. Two things to watch for:
+
+1. If prompt A is 40 tokens and prompt B is 90 tokens, prompt B silently loses its tail — so you might think you're interpolating toward some detail at the end of prompt B and it's just not in the embedding at all.
+2. Position-wise interpolation assumes token position *i* in prompt A is roughly comparable to token position *i* in prompt B. CLIP's text embeddings are contextualized (each position's vector is influenced by the whole sequence via self-attention), so this works better than you'd expect even when the underlying words don't line up — but it's still a soft blend of contextual features, not a semantic word-to-word morph. Wildly different prompt lengths/structures between A and B tend to produce mushier interpolation midpoints for this reason.
+
+## Practical takeaway for your workflow
+
+Since you're doing custom serving rather than going through a full pipeline wrapper, I'd suggest two things:
+
+1. Explicitly check token length before encoding (the snippet above) so you know when truncation is happening instead of finding out via weird results.
+2. If you want prompts longer than 75 tokens for interpolation, the common trick (used in A1111's prompt weighting extensions) is chunking: split the prompt into 75-token chunks, encode each chunk separately (each still gets its own BOS/EOS), then concatenate or average the resulting embeddings before interpolating. It's more code, but it's the only way to actually use the full prompt content rather than silently losing text.
+
+If you want, I can sketch out a small helper that does chunked encoding + interpolation for your custom loading setup — that'd slot in nicely as a topic for a video too, since "why your long SD prompts get cut off and nobody tells you" is a solid instructional hook.
+
+[user]
+Processing Frame 0232 of 249...
+[Run 1d3c8b0c] [07:44:44] Interpolation: (beautiful model half alien and half cyborg, human face, long dark hair, iron robots with peeling orange and olive green paint, background robot assembly factory, warehouse shelves, robot parts, style of H.G. Giger, Masterpiece, highly detailed, colorful, Dense,.36),(beautiful model half alien and half cyborg, human face, long dark hair, iron robots with peeling orange and olive green paint, background robot assembly factory, warehouse shelves, robot parts, style of H.G. Giger, Masterpiece, highly detailed, colorful, Dense,.64)
+100%|███████████████████████████████████████████████████████████████████████| 2/2 [01:32<00:00, 46.04s/it]
+[Run 1d3c8b0c] [07:47:03] Frame 0232 saved.
+------------ this example may show you what i am doing
+
+[CLAUDE]
+Looking at the log output from their interpolation process, I can see they're generating frames with weighted prompt blending—interpolating between two different weight values (0.36 and 0.64) of what appears to be the same prompt for a smooth morph effect. Let me count the tokens in that prompt to illustrate the point more concretely.
+
+The prompt runs quite long with detailed descriptors like "beautiful model half alien and half cyborg," "iron robots with peeling orange and olive green paint," "H.G. Giger" style references, and quality tags like "Masterpiece" and "highly detailed." Estimating token count is tricky since BPE tokenization splits words differently than word count—punctuation marks count as separate tokens, and compound terms like "H.G." might split unexpectedly. I'd estimate this is somewhere in the 55-70 word range, but the actual token count could easily be higher depending on how the tokenizer handles the splits. They'd get the most accurate count by running it through their actual tokenizer rather than guessing.
+
+What's interesting is that the same prompt appears at two different interpolation weights, which suggests this might be a latent space interpolation or weighted morph of the same prompt rather than two distinct variations being tested. The frame interpolation is likely blending two keyframes' conditioning states at specific weights across the video timeline, but since the prompt text itself is identical in both log entries, the actual text embedding isn't changing — the interpolation weights might be controlling something else like CFG scale or the noise schedule instead. I should clarify what's actually being interpolated here rather than speculating further. Since I can't access the tokenizer directly without network access, I'll estimate the token count using word and punctuation breakdown, then provide them with code they can run locally to get the exact count from their diffusers installation.
+
+I notice both weight entries use the same prompt text, so the .36/.64 likely represents something other than textual interpolation—maybe a conditioning scale or blend between latent states rather than two different prompts. Either way, since the prompt is identical in both cases, any truncation would happen the same way for each, so the interpolation itself doesn't compound the problem.
+
+Let me estimate the token count manually using CLIP BPE knowledge. Words like "H.G." split into separate tokens for each letter and period, "Giger" probably becomes 2 tokens, "cyborg" splits into 2. With roughly 45 space-separated words, about 15 of them splitting into extra tokens, plus 11 commas and BOS/EOS tokens, I'm getting around 73 tokens—very close to the 77 limit, which explains why they're right at the edge.
+
+I should clarify what the .36 and .64 weights actually control, since this changes the advice significantly. If it's text embedding interpolation versus latent/frame blending with a fixed prompt, that distinction matters for how to approach the problem.That's a really useful concrete example to look at — thanks for pasting the actual log line instead of describing it.
+
+First thing I notice: **the prompt text is identical in both halves of that log entry.** You've got `(same long prompt, .36)` and `(same long prompt, .64)` — not two different prompts. So whatever `.36` → `.64` represents, it's not text-prompt interpolation (where you'd blend embeddings from *two distinct* prompts). It's more likely one of:
+
+- an interpolation fraction between two keyframes' latents/noise, with the text conditioning held fixed for both, or
+- an emphasis/attention-weight applied to the whole prompt (A1111-style `(prompt:0.36)` syntax), scheduled to ramp from 0.36 to 0.64 across the frame range
+
+That distinction matters a lot for the truncation question, so — quick check before I go further:
+
+Is `.36`/`.64` a **CFG-style emphasis weight** on this single prompt, or is it a **blend fraction between this prompt's latent and some other keyframe's latent** (with the prompt genuinely staying the same both times)?
+
+Either way, here's what's still true about the token-limit angle for this specific prompt: eyeballing it, you're at roughly **70-75 tokens** by my manual count (BPE tends to split names/compounds like "cyborg," "Giger" into 2 sub-tokens each, and every comma is its own token) — so you're right up against the 77-token ceiling on this one, even before any truncation warning would fire. That's worth confirming exactly rather than estimating, since "close to the edge" prompts are exactly the ones where a small edit (adding one more descriptor tag) tips you over without you noticing.
+
+Since you're doing your own serving layer, the cheapest way to make this visible permanently — rather than relying on diffusers' silent `logger.warning` — is to check and log the count yourself right where you build the interpolation log line:
+
+```python
+def token_count(tokenizer, prompt: str) -> int:
+    return len(tokenizer(prompt, truncation=False)["input_ids"])
+
+n = token_count(tokenizer, prompt)
+if n > 77:
+    print(f"[Run {run_id}] ⚠️ prompt is {n} tokens, {n - 77} will be TRUNCATED")
+```
+
+Drop that next to your existing `[Run {run_id}] [{timestamp}] Interpolation:` line and you'd have caught this in the log you just showed me, instead of needing to eyeball it.
+
+[user]
+if i send embedding instead of text, can send a longer discription(prompt)
+
+[CLAUDE]
+The 77 token limit isn't just a tokenizer constraint—it's hardcoded into CLIP's positional embedding matrix, which only has 77 slots. Even if you bypass the tokenizer and send embeddings directly, you're still constrained by CLIP's architecture unless you fundamentally reconstruct the embeddings differently, so longer descriptions won't help without changing the underlying model.
+
+However, there's a workaround: you can chunk the text into multiple 77-token segments, encode each chunk through CLIP separately, then concatenate the resulting embedding tensors along the sequence dimension. Since the U-Net's cross-attention layers accept variable-length context (the key/value sequence length is flexible), you can feed this concatenated embedding—whether it's 154, 231 tokens, or longer—directly to the pipeline via the prompt_embeds parameter. The 77-token limit only applies per CLIP encoding pass, not to the U-Net itself, so this chunking-and-concatenation approach effectively bypasses the cap.
+
+I should show how to implement this in diffusers: encoding each chunk with proper BOS/EOS tokens, concatenating the embeddings, and passing them as prompt_embeds instead of a text prompt. On a CPU-only 16GB system, concatenating more chunks doesn't cause memory issues—cross-attention scales with sequence length but stays manageable even at a few hundred tokens, though it will be slower per step. If they want to interpolate between two long prompts, the approach is similar: chunk each prompt into the same number of segments, concatenate them separately, then apply slerp or lerp at corresponding positions across the chunks.Yes — and this is the actual fix, not just a workaround. Here's why it works and where the real limit lives.
+
+## The 77 limit isn't a CLIP-model limit, it's a *tokenizer/positional-embedding* limit
+
+CLIP's text encoder has a positional embedding table with exactly 77 rows — one per sequence position, up to `model_max_length`. That table is baked into the model weights; you can't feed it a 150-token sequence in one pass and expect anything sane out.
+
+But the **U-Net's cross-attention layers don't care how long the text sequence is.** Cross-attention just does `softmax(Q @ K.T) @ V` where Q comes from the image latent and K/V come from your text embedding sequence. K and V can be length 77, 154, 231 — whatever. The U-Net has no positional assumption about the text side at all.
+
+So the trick (this is literally what A1111's "long prompt weighting" and most "77 token bypass" implementations do):
+
+1. Split your prompt into chunks of ≤75 tokens
+2. Encode **each chunk separately** through CLIP (each gets its own BOS/EOS, each is a valid 77-length input to CLIP)
+3. **Concatenate the resulting embedding tensors along the sequence dimension** — not average, not truncate, actually concatenate
+4. Feed that longer concatenated tensor to the U-Net via `prompt_embeds=` instead of `prompt=`
+
+That's the "send embeddings instead of text" you're describing — and yes, it genuinely lets you exceed 77 tokens, because you're bypassing the tokenizer's hard cap entirely and only ever giving CLIP itself valid 77-length chunks.
+
+## Minimal version with diffusers
+
+```python
+import torch
+
+def encode_long_prompt(pipe, prompt: str, chunk_size: int = 75):
+    tokenizer = pipe.tokenizer
+    text_encoder = pipe.text_encoder
+
+    # tokenize with no truncation to see the full thing
+    tokens = tokenizer(prompt, truncation=False, add_special_tokens=False)["input_ids"]
+
+    chunks = [tokens[i:i+chunk_size] for i in range(0, len(tokens), chunk_size)]
+
+    bos, eos = tokenizer.bos_token_id, tokenizer.eos_token_id
+    embeds = []
+    for chunk in chunks:
+        ids = [bos] + chunk + [eos]
+        ids += [eos] * (tokenizer.model_max_length - len(ids))  # pad to 77
+        ids_tensor = torch.tensor([ids])
+        with torch.no_grad():
+            emb = text_encoder(ids_tensor)[0]  # [1, 77, 768]
+        embeds.append(emb)
+
+    return torch.cat(embeds, dim=1)  # [1, 77*n_chunks, 768]
+```
+
+Then instead of:
+```python
+pipe(prompt=prompt, ...)
+```
+you do:
+```python
+embeds = encode_long_prompt(pipe, prompt)
+pipe(prompt_embeds=embeds, ...)
+```
+
+`diffusers` pipelines accept `prompt_embeds` directly for exactly this reason — it's a documented escape hatch from the tokenizer path.
+
+## What this means for your interpolation case specifically
+
+Two different situations, worth distinguishing since your last example had identical text on both sides:
+
+**If you interpolate between two *different* long prompts:** chunk both the same way (same `chunk_size`), pad both to the same number of chunks (pad the shorter one with empty/EOS-only chunks so shapes match), then slerp/lerp the resulting `[1, 77*n, 768]` tensors position-by-position, same as you would with a 77-length embedding. The concatenation doesn't change the interpolation math, just gives it more positions to work over.
+
+**If you're doing weight scheduling on one prompt** (which is what your `.36`/`.64` log actually looked like) — this chunking trick is unrelated to that; you'd apply your weight scaling to the concatenated embedding the same way you were applying it before.
+
+## The CPU/16GB angle, since this is your actual hardware
+
+Cross-attention cost scales roughly with sequence length for the K/V side, so going from 77→154 tokens roughly doubles that portion of attention compute per step — noticeable on CPU, but not brutal, since attention isn't the dominant cost in SD1.5's U-Net (the conv blocks are). Memory-wise, an extra 77×768 float tensor is trivial (~230KB), so this is a compute-time tradeoff, not a memory one. Given you're already running LCM for speed, going to 2-3 chunks (150-225 tokens) is very affordable; I wouldn't go past 3-4 chunks on CPU-only without expecting per-frame time to climb noticeably, especially across a 249-frame interpolation run like your log showed.
+
+This — "why your prompt gets silently cut at 77 tokens, and how to actually bypass it with chunked embeddings" — would make a genuinely good instructional segment, since it's a real gotcha almost nobody explains correctly (most tutorials just say "keep prompts short").
+

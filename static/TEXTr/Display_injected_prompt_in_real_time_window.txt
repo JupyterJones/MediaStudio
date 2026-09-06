@@ -1,0 +1,73 @@
+Display injected prompt in real-time window
+===========================================
+
+[user]
+i want to see the actual prompt being sent in a window below the "Mouse Ready"
+it should include the injected it must update as the inject is appended
+
+[CLAUDE]
+
+```
+This block is not supported on your current device yet.
+```
+
+Here's the change you need. Add a `#prompt-display` div below `#mouse_status` in the HTML, then update the `/status` polling script to refresh it. Two edits:
+
+**1. Add the display box** — replace the closing `</div>` of the right column area after `#mouse_status`:
+```
+This block is not supported on your current device yet.
+```
+
+Here are the two exact changes to make in your Python file:
+
+**Change 1** — Add the prompt display box right after `#mouse_status` div in the HTML:
+
+```html
+        <div id="mouse_status">
+            Mouse Ready
+        </div>
+
+        <!-- ADD THIS BELOW -->
+        <div style="margin-top:12px;">
+            <label style="font-size:11px; color:#888; font-weight:bold;">Active Prompt</label>
+            <div id="prompt_display" style="
+                margin-top:4px;
+                padding:10px;
+                background:#1c1c21;
+                border:1px solid #333;
+                border-radius:4px;
+                color:#e0c97f;
+                font-size:11px;
+                line-height:1.5;
+                word-break:break-word;
+                min-height:60px;
+                max-height:160px;
+                overflow-y:auto;
+                white-space:pre-wrap;
+            ">—</div>
+        </div>
+```
+
+**Change 2** — In the `setInterval` status polling block, add one line to update the prompt display. Find this block:
+
+```javascript
+setInterval(() => {
+    fetch('/status').then(r => r.json()).then(d => {
+        document.getElementById('stat_text').innerText = ...
+        document.getElementById('bar').style.width = ...
+        document.getElementById('preview').src = ...
+    });
+}, 6000);
+```
+
+Add this line inside the `.then(d => { ... })` block:
+
+```javascript
+// build the full active prompt string
+const injPart = d.injections && d.injections.length ? ", " + d.injections.join(", ") : "";
+const base = document.getElementById('prompt').value.trim();
+document.getElementById('prompt_display').innerText = base + injPart || "—";
+```
+
+That's it. The display box will show the current base prompt from the textarea concatenated with any injected modifiers, exactly as they'd be sent, and it refreshes every 6 seconds with the same poll that updates the frame counter. The yellow-toned color (`#e0c97f`) visually distinguishes it from the green status indicators. It also scrolls if the prompt gets long.
+

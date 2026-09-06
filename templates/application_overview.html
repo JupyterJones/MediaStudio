@@ -1,241 +1,920 @@
-<!-- Description: HTML template for the application overview page -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="cyber">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flask-Based Image and Video Processing Application</title>
-<style>
-  body {
-   font-family: Arial, sans-serif;
-   margin: 0;
-   padding: 0;
-   background-color: #98de91;
-   color: #333;
-    }
-   .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #21f356;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Studio - Application Overview & Function Reference</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themed.css') }}">
+    <style>
+        :root {
+            --bg-color: #080812;
+            --bg-surface: #0e1222;
+            --bg-card: rgba(18, 18, 35, 0.82);
+            --bg-card-hover: rgba(26, 26, 50, 0.95);
+            --accent-primary: #00f0ff;
+            --accent-secondary: #b800ff;
+            --accent-gradient: linear-gradient(135deg, #00f0ff 0%, #b800ff 100%);
+            --text-main: #e2e8f0;
+            --text-muted: #8a8fba;
+            --text-bright: #ffffff;
+            --border-color: rgba(255, 255, 255, 0.12);
+            --border-focus: rgba(0, 240, 255, 0.6);
+            --radius: 10px;
         }
-   h1, h2, h3 {
-            color: #007BFF;
-        }
-   h1 {
-    border-bottom: 2px solid #007BFF;
-    padding-bottom: 10px;
-    }
-   ul {
-    list-style: none;
-    padding: 0;
-    }
-   ul li {
-    margin: 10px 0;
-    }
-   .feature-list, .use-case-list {
-    padding-left: 20px;
-    }
-        .feature-list li, .use-case-list li {
-            background: #e9ecef;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .conclusion {
-            padding: 20px;
-            background: #e9ecef;
-            border-radius: 5px;
-        }
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            padding: 10px;
-            background: #007BFF;
-            color: #fff;
-            border-radius: 5px;
-        }
-        pre {
-            background: #ccedbf;
-            width: 85%;
-            margin: 0 auto;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 20px;
-            white-space: pre-wrap;
-        }
-       
+
         body {
-            background-color: #2C2C2C;
-            color: rgb(27, 1, 1);
-            font-family: Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.08) 0%, transparent 40%),
+                              radial-gradient(circle at 85% 85%, rgba(184, 0, 255, 0.08) 0%, transparent 40%);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 2rem 1rem;
+            min-height: 100vh;
         }
-        .refresh-button {
-            display: inline-block;
-            padding: 5px 10px;
-            font-size: 16px;
-            background-color: #5C5CFF;
-            color: white;
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Top Header */
+        .header-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.75rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .header-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0.25rem 0 0 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-nav {
+            padding: 0.55rem 1.1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
             text-decoration: none;
-            border-radius: 5px;
-            margin: 1px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
         }
-        .refresh_button {
+
+        .btn-nav-primary {
+            background: var(--accent-gradient);
+            color: #080812;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+        .btn-nav-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 22px rgba(0, 240, 255, 0.5);
+            color: #080812;
+        }
+
+        .btn-nav-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+        .btn-nav-secondary:hover {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Search Filter */
+        .search-box {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.9rem 1.25rem 0.9rem 2.8rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            color: var(--text-bright);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box;
+        }
+        .search-input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+        }
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Module Section Cards */
+        .module-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            margin-bottom: 1.75rem;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        .module-card:hover {
+            border-color: rgba(0, 240, 255, 0.4);
+        }
+
+        .module-header {
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .module-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .module-icon {
+            font-size: 1.5rem;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 8px;
+        }
+
+        .module-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin: 0;
+        }
+
+        .module-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0.2rem 0 0 0;
+        }
+
+        .module-count {
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--accent-primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
+        .module-body {
+            padding: 1.25rem 1.5rem;
+        }
+
+        /* Functions Table */
+        .func-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+
+        .func-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .func-table td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            vertical-align: top;
+        }
+
+        .func-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .route-badge {
             display: inline-block;
-            padding: 5px 10px;
-            font-size: 24px;
-            background-color: #ffcd04;
-            color: rgb(61, 142, 235);
-            text-decoration: underline;
-            border-radius: 5px;
-            margin: 1px;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            color: var(--accent-primary);
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
         }
-        .refresh-button:hover {
-            background-color: #3C3CFF;
+        .route-badge:hover {
+            background: rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+            color: #ffffff;
         }
-</style>
+
+        .func-name {
+            font-family: 'JetBrains Mono', monospace;
+            color: #b800ff;
+            font-weight: 600;
+        }
+
+        .func-desc {
+            color: var(--text-main);
+            line-height: 1.45;
+        }
+
+        .btn-launch {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            color: var(--text-bright);
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .btn-launch:hover {
+            background: var(--accent-gradient);
+            color: #080812;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>--LIVE STREAM--Flask-Based Image and Video Processing Application</h1>
-        <a href="{{ url_for('index') }}" class="refresh_button">HOME</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="{{ url_for('edit_description') }}" class="refresh_button">Edit this page</a><br/>
-        <h1>Audio Player</h1>
-        <audio controls>
-            <source src="{{ url_for('static', filename='audio/narration.mp3') }}" type="audio/mp3">
-            Your browser does not support the audio element.
-        </audio>
-        
-        
-<h2>Application Overview</h2>
-<p>This Flask-based application is a versatile tool for image and video processing, particularly geared towards creating, manipulating, and blending images for various creative projects. The application supports multiple functionalities, including image uploads, grayscale and binary mask generation, image blending, and video frame extraction. It's designed to provide a smooth user experience for managing and processing media files within a structured web interface.</p>
 
-        <h2>Key Features</h2>
-        <p>
-        <a href="{{ url_for('refresh_images') }}" class="refresh-button">Refresh Images</a><br/>
-    This command loads 25 images. I save my images as videos so they may be retrieved for projects such as this. This selects twenty five videos and an image from each one to add to the resources. </p> 
-        <p><a href="{{ url_for('display_resources') }}" class="refresh-button">Display Resource Images</a><br/>
-        Display resource images Will display all images available for compositing.</p>
-        <p><a href="{{ url_for('select_images') }}" class="refresh-button">Select Images to Blend</a><br/>
-        The available images are displayed here. At this point you may choose a top image a mask and a bottom image. Then at the bottom of the page SUBMIT. The images will be composited and displayed. All images that have been created will be displayed. However, the last image will be shown first.</p><br/>
-            <p><a href="{{ url_for('index_upload') }}" class="refresh-button">Upload a Specific Image</a><br/>
-            Here you may select an image to add to you resources. As you see Last is displayed first. </p><br/>
-        <a href="{{ url_for('get_video_images') }}" class="refresh-button">Get Images from YouTube Videos</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="{{ url_for('face_detect') }}" class="refresh-button">Get Image For Face Detection</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="{{ url_for('refresh_video') }}" class="refresh-button">Make Video</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="{{ url_for('select_mask_image') }}" class="refresh-button">Special Mask -Choice-</a>
-        <hr>
-        <form action="/get_images" method="post">
-            <button type="submit">Get Three Random Images</button>
-        <h3>Image Uploading and Storage:</h3>
-        <ul class="feature-list">
-            <li>Users can upload images in various formats (PNG, JPG, JPEG, GIF) through a user-friendly web interface.</li>
-            <li>Uploaded images are securely stored in designated directories (static/archived-images), ensuring easy access and management.</li>
-            <li>Uploaded images are automatically organized by upload time, with the most recent images displayed first.</li>
-        </ul>
-        
-        <h3>Mask Generation:</h3>
-        <ul class="feature-list">
-            <li>The application allows users to create masks for images using two different methods:</li>
-            <ul>
-                <li><strong>Grayscale Masking:</strong> Converts an image to grayscale and uses it as a mask for blending purposes.</li>
-                <li><strong>Binary Masking:</strong> Converts an image to a binary format by calculating the mean pixel value and using it as a threshold. The resulting binary mask can be inverted for alternative effects.</li>
-            </ul>
-            <li>These masks are saved in the static/archived-masks directory and can be applied to other images within the application.</li>
-        </ul>
-
-        <h3>Image Blending:</h3>
-        <ul class="feature-list">
-            <li>Users can blend two images using a selected mask (either grayscale or binary) with adjustable opacity settings.</li>
-            <li>The blending process is performed using the Pillow library, and the final blended image is saved in the static/archived-store directory.</li>
-            <li>The application ensures that the dimensions of all images involved in blending are consistent by resizing them to a standard size (512x768 pixels).</li>
-        </ul>
-
-        <h3>Video Frame Extraction:</h3>
-        <ul class="feature-list">
-            <li>The application can extract random frames from a video file, enabling users to generate a series of images from their video content.</li>
-            <li>Extracted frames are saved in the static/archived-images directory for further manipulation or use in blending processes.</li>
-        </ul>
-
-        <h3>Image Selection and Mask Application:</h3>
-        <ul class="feature-list">
-            <li>Users can select images for further processing, such as applying masks or blending with other images.</li>
-            <li>The application supports a selection workflow that allows users to preview and choose their desired images and masks through an intuitive web interface.</li>
-        </ul>
-
-        <h3>Logging and Debugging:</h3>
-        <ul class="feature-list">
-            <li>The application is equipped with a robust logging system that tracks actions and errors throughout the execution. Logs are saved to a file (exp_log.txt), providing detailed insights into the application’s behavior for debugging and monitoring purposes.</li>
-        </ul>
-
-        <h3>Subprocess Integration:</h3>
-        <ul class="feature-list">
-            <li>Certain features, like refreshing images or videos, are handled by external Python scripts. These scripts are executed through subprocess calls, allowing the application to manage complex tasks without blocking the main process.</li>
-            <li>This modular approach ensures that the application remains responsive and can handle additional processing in the background.</li>
-        </ul>
-
-        <h2>Use Cases</h2>
-        <ul class="use-case-list">
-            <li><strong>Creative Projects:</strong> Ideal for artists and designers who want to experiment with image blending and masking techniques to create unique visual compositions.</li>
-            <li><strong>Video Processing:</strong> Useful for content creators who need to extract and manipulate frames from their video files for promotional materials or other purposes.</li>
-            <li><strong>Web-Based Media Management:</strong> Provides a centralized platform for managing, processing, and storing images and videos in a structured and organized manner.</li>
-        </ul>
-
-        <h2>Conclusion</h2>
-        <div class="conclusion">
-            <p>This application serves as a comprehensive toolkit for image and video processing, blending artistic creativity with technical precision. Whether you are working on a digital art project, creating promotional content, or simply experimenting with visual effects, this application offers the tools and flexibility you need to bring your ideas to life.</p>
+<div class="container">
+    <!-- Header -->
+    <div class="header-card">
+        <div class="header-top">
+            <div>
+                <h1 class="header-title">⚡ Media Studio Architecture & Reference</h1>
+                <p class="header-subtitle">Comprehensive functional catalog of backend routes, transition pipelines, AI engines, and media utilities.</p>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}" class="btn-nav btn-nav-secondary">🏠 Home Dashboard</a>
+                <a href="{{ url_for('mk_videos') }}" class="btn-nav btn-nav-secondary">🎬 Video Studio</a>
+                <a href="{{ url_for('stable_diffusion') }}" class="btn-nav btn-nav-primary">✨ Stable Diffusion</a>
+                <a href="{{ url_for('gallery') }}" class="btn-nav btn-nav-secondary">🖼️ Media Gallery</a>
+                <a href="{{ url_for('edit_description') }}" class="btn-nav btn-nav-secondary">✏️ Edit This Page</a>
+            </div>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Flask-Based Image and Video Processing Application. All Rights Reserved.</p>
-    </footer>
+    <!-- Search Input -->
+    <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search functions, endpoints, or descriptions (e.g., 'slide', 'lora', 'tts', 'mask', 'img2img')..." onkeyup="filterFunctions()">
+    </div>
+
+    <!-- MODULE 1: OFFLINE STABLE DIFFUSION & AI -->
+    <div class="module-card">
+        <div class="module-header">
+            <div class="module-title-wrap">
+                <div class="module-icon">🤖</div>
+                <div>
+                    <h2 class="module-title">Offline Stable Diffusion & AI Image Synthesis</h2>
+                    <p class="module-desc">Local Diffusers generative pipeline with live Comfy-UI checkpoint discovery, dual LoRA fusion, custom VAE loading, and img2img transformations.</p>
+                </div>
+            </div>
+            <span class="module-count">6 Endpoints</span>
+        </div>
+        <div class="module-body">
+            <table class="func-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Endpoint / Route</th>
+                        <th style="width: 22%;">Function Handler</th>
+                        <th style="width: 43%;">Description & Capabilities</th>
+                        <th style="width: 10%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="/stable_diffusion" class="route-badge">/stable_diffusion</a></td>
+                        <td><span class="func-name">stable_diffusion()</span></td>
+                        <td class="func-desc">Main web client for local AI image synthesis. Supports Text-to-Image (<code>txt2img</code>) and Image-to-Image (<code>img2img</code>) with interactive strength sliders, live model picker, and direct output sending.</td>
+                        <td><a href="/stable_diffusion" class="btn-launch">Launch ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/models" class="route-badge">/models</a></td>
+                        <td><span class="func-name">models()</span></td>
+                        <td class="func-desc">Scans <code>/home/jack/Desktop/Comfy-UI/models/</code> dynamically and returns JSON arrays of available Checkpoints, LoRAs, and VAEs.</td>
+                        <td><a href="/models" class="btn-launch">View API ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="route-badge">/generate_image</span></td>
+                        <td><span class="func-name">generate_image()</span></td>
+                        <td class="func-desc">POST endpoint executing offline <code>generate.py</code>. Enforces 4 CPU execution threads, 500s timeout, VAE tiling/slicing, and saves output to <code>static/novel_images/</code>.</td>
+                        <td><span style="color:var(--text-muted); font-size:0.75rem;">POST Only</span></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/sdgallery" class="route-badge">/sdgallery</a></td>
+                        <td><span class="func-name">sdgallery()</span></td>
+                        <td class="func-desc">Dedicated full-screen gallery showcasing newly synthesized Stable Diffusion images with generation metadata.</td>
+                        <td><a href="/sdgallery" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/mk_prompt" class="route-badge">/mk_prompt</a></td>
+                        <td><span class="func-name">mk_prompt_route()</span></td>
+                        <td class="func-desc">Interactive creative prompt builder supporting prompt expansions, negative prompts, and style presets.</td>
+                        <td><a href="/mk_prompt" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/ai_path" class="route-badge">/ai_path</a></td>
+                        <td><span class="func-name">ai_path()</span></td>
+                        <td class="func-desc">Orchestrates automated AI storyboard generation, sequencing still images and speech synthesis into full narrative videos.</td>
+                        <td><a href="/ai_path" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODULE 2: VIDEO GENERATION & TRANSITIONS ENGINE -->
+    <div class="module-card">
+        <div class="module-header">
+            <div class="module-title-wrap">
+                <div class="module-icon">🎬</div>
+                <div>
+                    <h2 class="module-title">Video Generation & Cinematic Transitions Engine</h2>
+                    <p class="module-desc">Multi-directional wipes, camera zooms, door portals, flipbooks, cross-fades, and seamless video concatenators.</p>
+                </div>
+            </div>
+            <span class="module-count">18 Key Pipelines</span>
+        </div>
+        <div class="module-body">
+            <table class="func-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Endpoint / Route</th>
+                        <th style="width: 22%;">Function Handler</th>
+                        <th style="width: 43%;">Description & Capabilities</th>
+                        <th style="width: 10%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="/mk_videos" class="route-badge">/mk_videos</a></td>
+                        <td><span class="func-name">mk_videos()</span></td>
+                        <td class="func-desc">Central video processing workstation. Lets users select transition styles, set durations, attach background music, and trigger renders.</td>
+                        <td><a href="/mk_videos" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/slide" class="route-badge">/slide</a></td>
+                        <td><span class="func-name">slide_route()</span></td>
+                        <td class="func-desc">Multi-axis directional sliding transition (left, right, up, down) with customizable boundary padding and smooth acceleration.</td>
+                        <td><a href="/slide" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/fadem" class="route-badge">/fadem</a></td>
+                        <td><span class="func-name">fadem()</span></td>
+                        <td class="func-desc">High-quality cross-fade dissolve generator smoothly blending adjacent images across configurable frame durations.</td>
+                        <td><a href="/fadem" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/zoomx4" class="route-badge">/zoomx4</a> / <a href="/zoomy4" class="route-badge">/zoomy4</a></td>
+                        <td><span class="func-name">zoomx4_route() / zoomy4_route()</span></td>
+                        <td class="func-desc">Dynamic 4-quadrant continuous horizontal and vertical scale zooms creating deep cinematic camera push-ins.</td>
+                        <td><a href="/zoomx4" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/diagonal-transition" class="route-badge">/diagonal-transition</a></td>
+                        <td><span class="func-name">diagonal_transition_route()</span></td>
+                        <td class="func-desc">Angular geometric diagonal wipes revealing incoming images across angled slit trajectories.</td>
+                        <td><a href="/diagonal-transition" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/circular_transition" class="route-badge">/circular_transition</a></td>
+                        <td><span class="func-name">circular_transition_route()</span></td>
+                        <td class="func-desc">Expanding and contracting radial iris mask transitions revealing secondary scenes from focal centers.</td>
+                        <td><a href="/circular_transition" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/square_transition" class="route-badge">/square_transition</a></td>
+                        <td><span class="func-name">square_transition_route()</span></td>
+                        <td class="func-desc">Expanding rectangular and square mask transition effects with configurable aspect proportions.</td>
+                        <td><a href="/square_transition" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/open_doors" class="route-badge">/open_doors</a></td>
+                        <td><span class="func-name">open_doors_route()</span></td>
+                        <td class="func-desc">Splits the foreground image down the center into animated dual sliding doors, revealing the next scene behind it.</td>
+                        <td><a href="/open_doors" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/vertical-scroll" class="route-badge">/vertical-scroll</a></td>
+                        <td><span class="func-name">vertical_scroll_route()</span></td>
+                        <td class="func-desc">Stitches multiple images into seamless feathered panoramic strips and generates smooth vertical scrolling video streams.</td>
+                        <td><a href="/vertical-scroll" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/best-flipbook" class="route-badge">/best-flipbook</a></td>
+                        <td><span class="func-name">best_flipbook_route()</span></td>
+                        <td class="func-desc">Assembles high-speed animated flipbook montages from sequential frames with automated dimension normalization.</td>
+                        <td><a href="/best-flipbook" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/blendem" class="route-badge">/blendem</a></td>
+                        <td><span class="func-name">blendem_route()</span></td>
+                        <td class="func-desc">Composites two video tracks or an image sequence with custom alpha masks, blending layers with variable opacity.</td>
+                        <td><a href="/blendem" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/join-video" class="route-badge">/join-video</a></td>
+                        <td><span class="func-name">join_video_route()</span></td>
+                        <td class="func-desc">Concatenates all individually rendered transition clips into a single continuous master MP4 video.</td>
+                        <td><a href="/join-video" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/refresh-video" class="route-badge">/refresh-video</a></td>
+                        <td><span class="func-name">refresh_video()</span></td>
+                        <td class="func-desc">Subprocess worker triggering <code>refresh_video.py</code> to regenerate clips and update video resource caches.</td>
+                        <td><a href="/refresh-video" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/trim-video" class="route-badge">/trim-video</a></td>
+                        <td><span class="func-name">trim_video()</span></td>
+                        <td class="func-desc">Precision FFmpeg video cutter trimming beginning, end, or intermediate video segments with accurate timestamps.</td>
+                        <td><a href="/trim-video" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/reverse_video" class="route-badge">/reverse_video</a></td>
+                        <td><span class="func-name">reverse_video()</span></td>
+                        <td class="func-desc">Renders reverse-motion video tracks by reversing video frame sequences via MoviePy/FFmpeg.</td>
+                        <td><a href="/reverse_video" class="btn-launch">Run ↗</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODULE 3: MASKING, SHAPES & CUTOUTS -->
+    <div class="module-card">
+        <div class="module-header">
+            <div class="module-title-wrap">
+                <div class="module-icon">🎭</div>
+                <div>
+                    <h2 class="module-title">Masking, Alpha Channels & Cutout Studio</h2>
+                    <p class="module-desc">Creation and management of grayscale, binary, circular, and geometric alpha masks for multi-layer video compositing.</p>
+                </div>
+            </div>
+            <span class="module-count">8 Tools</span>
+        </div>
+        <div class="module-body">
+            <table class="func-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Endpoint / Route</th>
+                        <th style="width: 22%;">Function Handler</th>
+                        <th style="width: 43%;">Description & Capabilities</th>
+                        <th style="width: 10%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="/mk_mask" class="route-badge">/mk_mask</a></td>
+                        <td><span class="func-name">mk_mask()</span></td>
+                        <td class="func-desc">Interactive canvas interface for generating grayscale luminance masks and binary thresholded matte cutouts.</td>
+                        <td><a href="/mk_mask" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="route-badge">/create_circle_mask</span></td>
+                        <td><span class="func-name">create_circle_mask()</span></td>
+                        <td class="func-desc">Generates radial circular alpha masks with adjustable radius, feathering blur radius, and center coordinates.</td>
+                        <td><span style="color:var(--text-muted); font-size:0.75rem;">POST Only</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="route-badge">/create_rectangle_mask</span></td>
+                        <td><span class="func-name">create_rectangle_mask()</span></td>
+                        <td class="func-desc">Generates rectangular geometric matte masks with custom aspect ratios, corner bevels, and feathered edges.</td>
+                        <td><span style="color:var(--text-muted); font-size:0.75rem;">POST Only</span></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/select_mask_image" class="route-badge">/select_mask_image</a></td>
+                        <td><span class="func-name">select_mask_image()</span></td>
+                        <td class="func-desc">Visual picker allowing users to select an image from the library and generate custom alpha masks from its contours.</td>
+                        <td><a href="/select_mask_image" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/view_masks" class="route-badge">/view_masks</a></td>
+                        <td><span class="func-name">view_masks()</span></td>
+                        <td class="func-desc">Gallery and archive viewer for all generated mask files stored in <code>static/archived-masks/</code>.</td>
+                        <td><a href="/view_masks" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODULE 4: IMAGE PROCESSING, FILTERS & OVERLAYS -->
+    <div class="module-card">
+        <div class="module-header">
+            <div class="module-title-wrap">
+                <div class="module-icon">🎨</div>
+                <div>
+                    <h2 class="module-title">Image Processing, Filters & Overlays</h2>
+                    <p class="module-desc">Edge effects, face detection, chroma-key green screen, size blurring, decorative frames, and overlays.</p>
+                </div>
+            </div>
+            <span class="module-count">12 Tools</span>
+        </div>
+        <div class="module-body">
+            <table class="func-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Endpoint / Route</th>
+                        <th style="width: 22%;">Function Handler</th>
+                        <th style="width: 43%;">Description & Capabilities</th>
+                        <th style="width: 10%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="/img_processing" class="route-badge">/img_processing</a></td>
+                        <td><span class="func-name">img_processing_route()</span></td>
+                        <td class="func-desc">Image manipulation workstation offering color grading, brightness, contrast, inversion, and filter effects.</td>
+                        <td><a href="/img_processing" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="route-badge">/torn_edge</span></td>
+                        <td><span class="func-name">create_torn_edge_effect()</span></td>
+                        <td class="func-desc">Applies an organic, distressed torn-paper border effect around image perimeters for vintage collage looks.</td>
+                        <td><span style="color:var(--text-muted); font-size:0.75rem;">POST Only</span></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/face_detect" class="route-badge">/face_detect</a></td>
+                        <td><span class="func-name">face_detect()</span></td>
+                        <td class="func-desc">OpenCV Haar-Cascade facial recognition pipeline identifying faces, extracting portraits, and highlighting facial features.</td>
+                        <td><a href="/face_detect" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/size_blur" class="route-badge">/size_blur</a></td>
+                        <td><span class="func-name">size_blur()</span></td>
+                        <td class="func-desc">Resizes non-standard aspect images by embedding them over an aesthetically blurred, enlarged duplicate background.</td>
+                        <td><a href="/size_blur" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/green_screen" class="route-badge">/green_screen</a></td>
+                        <td><span class="func-name">greenscreen()</span></td>
+                        <td class="func-desc">Chroma-key matte extractor subtracting green/blue backgrounds and replacing them with selected scenic backgrounds.</td>
+                        <td><a href="/green_screen" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/png_overlay" class="route-badge">/png_overlay</a></td>
+                        <td><span class="func-name">png_overlay()</span></td>
+                        <td class="func-desc">Layers transparent PNG watermarks, HUD overlays, textures, and borders over still images and MP4 video streams.</td>
+                        <td><a href="/png_overlay" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/inkblot" class="route-badge">/inkblot</a></td>
+                        <td><span class="func-name">rorschach()</span></td>
+                        <td class="func-desc">Generates procedurally mirrored bilateral Rorschach inkblot patterns for artistic overlays and masks.</td>
+                        <td><a href="/inkblot" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODULE 5: AUDIO, SPEECH & NARRATION -->
+    <div class="module-card">
+        <div class="module-header">
+            <div class="module-title-wrap">
+                <div class="module-icon">🎙️</div>
+                <div>
+                    <h2 class="module-title">Audio, Speech Synthesis & Narration</h2>
+                    <p class="module-desc">Text-to-speech voice generation, background music mixing, automatic audio cross-fades, and audio card creators.</p>
+                </div>
+            </div>
+            <span class="module-count">10 Features</span>
+        </div>
+        <div class="module-body">
+            <table class="func-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Endpoint / Route</th>
+                        <th style="width: 22%;">Function Handler</th>
+                        <th style="width: 43%;">Description & Capabilities</th>
+                        <th style="width: 10%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="/play_narration" class="route-badge">/play_narration</a></td>
+                        <td><span class="func-name">play_narration()</span></td>
+                        <td class="func-desc">In-browser audio audition player playing active voiceover tracks and generated speech clips.</td>
+                        <td><a href="/play_narration" class="btn-launch">Play ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/text_to_mp3" class="route-badge">/text_to_mp3</a></td>
+                        <td><span class="func-name">text_to_mp3()</span></td>
+                        <td class="func-desc">Text-to-Speech synthesizer converting entered script text into high-clarity MP3 voice recordings.</td>
+                        <td><a href="/text_to_mp3" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/balacoon" class="route-badge">/balacoon</a></td>
+                        <td><span class="func-name">balacoon()</span></td>
+                        <td class="func-desc">Neural voice synthesis engine integration utilizing Balacoon TTS models for expressive character audio.</td>
+                        <td><a href="/balacoon" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/add_audio" class="route-badge">/add_audio</a></td>
+                        <td><span class="func-name">add_audio()</span></td>
+                        <td class="func-desc">Muxes audio tracks onto video clips with automated volume ducking, padding, and smooth fade-in/fade-out envelopes.</td>
+                        <td><a href="/add_audio" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/add_sound_image" class="route-badge">/add_sound_image</a></td>
+                        <td><span class="func-name">render_add_sound_form()</span></td>
+                        <td class="func-desc">Pairs a single still graphic with an audio track to generate a video clip matching the exact duration of the audio.</td>
+                        <td><a href="/add_sound_image" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODULE 6: GRAPHIC NOVEL & STORYBUILDER -->
+    <div class="module-card">
+        <div class="module-header">
+            <div class="module-title-wrap">
+                <div class="module-icon">📖</div>
+                <div>
+                    <h2 class="module-title">Graphic Novel & Episodic Story Creator</h2>
+                    <p class="module-desc">Chapter-based story video production, dialogue captions, and visual novel sequencing.</p>
+                </div>
+            </div>
+            <span class="module-count">8 Tools</span>
+        </div>
+        <div class="module-body">
+            <table class="func-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Endpoint / Route</th>
+                        <th style="width: 22%;">Function Handler</th>
+                        <th style="width: 43%;">Description & Capabilities</th>
+                        <th style="width: 10%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="/mk_novel" class="route-badge">/mk_novel</a></td>
+                        <td><span class="func-name">mk_novel()</span></td>
+                        <td class="func-desc">Graphic novel workstation orchestrating episodic panels, character dialogue, and page layout sequences.</td>
+                        <td><a href="/mk_novel" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="route-badge">/create_novel_video</span></td>
+                        <td><span class="func-name">create_novel_video()</span></td>
+                        <td class="func-desc">Compiles novel illustration panels and synchronized narrative voiceovers into cinematic chapter videos.</td>
+                        <td><span style="color:var(--text-muted); font-size:0.75rem;">POST Only</span></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/add_novel_caption" class="route-badge">/add_novel_caption</a></td>
+                        <td><span class="func-name">add_novel_caption()</span></td>
+                        <td class="func-desc">Stamps stylized comic-book style dialogue balloons, narrative captions, and chapter titles directly onto story frames.</td>
+                        <td><a href="/add_novel_caption" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/mk_flipnovel" class="route-badge">/mk_flipnovel</a></td>
+                        <td><span class="func-name">mk_flipnovel()</span></td>
+                        <td class="func-desc">Compiles novel chapters into rapid animated flipbooks for quick narrative pacing reviews.</td>
+                        <td><a href="/mk_flipnovel" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODULE 7: GALLERIES & MEDIA BROWSERS -->
+    <div class="module-card">
+        <div class="module-header">
+            <div class="module-title-wrap">
+                <div class="module-icon">🖼️</div>
+                <div>
+                    <h2 class="module-title">Galleries, Resource Pickers & Media Browsers</h2>
+                    <p class="module-desc">High-density visual media galleries, compositing pickers, and video browser with automated thumbnail indexing.</p>
+                </div>
+            </div>
+            <span class="module-count">10 Viewers</span>
+        </div>
+        <div class="module-body">
+            <table class="func-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Endpoint / Route</th>
+                        <th style="width: 22%;">Function Handler</th>
+                        <th style="width: 43%;">Description & Capabilities</th>
+                        <th style="width: 10%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="/gallery" class="route-badge">/gallery</a></td>
+                        <td><span class="func-name">gallery()</span></td>
+                        <td class="func-desc">Responsive, high-density photo gallery displaying all images stored in <code>static/novel_images/</code>.</td>
+                        <td><a href="/gallery" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/view_novel_files" class="route-badge">/view_novel_files</a></td>
+                        <td><span class="func-name">view_novel_files()</span></td>
+                        <td class="func-desc">Novel image manager with safe deletion — any deleted novel images are automatically moved to <code>static/resource_images/</code>.</td>
+                        <td><a href="/view_novel_files" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/view_resource_images" class="route-badge">/view_resource_images</a></td>
+                        <td><span class="func-name">view_resource_images()</span></td>
+                        <td class="func-desc">Resource images archive gallery — view all safely relocated novel images and restore them back to <code>static/novel_images/</code>.</td>
+                        <td><a href="/view_resource_images" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/display_resources" class="route-badge">/display_resources</a></td>
+                        <td><span class="func-name">display_resources()</span></td>
+                        <td class="func-desc">Media asset overview showing all active image and video frame resources ready for compositing and blending.</td>
+                        <td><a href="/display_resources" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/select_images" class="route-badge">/select_images</a></td>
+                        <td><span class="func-name">select_images()</span></td>
+                        <td class="func-desc">Three-way visual picker allowing users to choose a top image, a mask, and a background image for instant blending.</td>
+                        <td><a href="/select_images" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/video_browser" class="route-badge">/video_browser</a></td>
+                        <td><span class="func-name">video_browser()</span></td>
+                        <td class="func-desc">Interactive video library browser with automated thumbnail extraction, playback controls, and file management.</td>
+                        <td><a href="/video_browser" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODULE 8: SYSTEM, TERMINAL & DIAGNOSTICS -->
+    <div class="module-card">
+        <div class="module-header">
+            <div class="module-title-wrap">
+                <div class="module-icon">🛠️</div>
+                <div>
+                    <h2 class="module-title">System Tools, Web Terminal & Diagnostics</h2>
+                    <p class="module-desc">In-browser bash terminal, real-time Python garbage collection monitor, file manager, and system log inspector.</p>
+                </div>
+            </div>
+            <span class="module-count">10 Utilities</span>
+        </div>
+        <div class="module-body">
+            <table class="func-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Endpoint / Route</th>
+                        <th style="width: 22%;">Function Handler</th>
+                        <th style="width: 43%;">Description & Capabilities</th>
+                        <th style="width: 10%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="/bash" class="route-badge">/bash</a> / <a href="/index_bash" class="route-badge">/index_bash</a></td>
+                        <td><span class="func-name">bash() / index_bash()</span></td>
+                        <td class="func-desc">Web-based terminal shell allowing secure execution of bash system commands and transition scripts directly from the browser.</td>
+                        <td><a href="/bash" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/file_home" class="route-badge">/file_home</a></td>
+                        <td><span class="func-name">file_home()</span></td>
+                        <td class="func-desc">Built-in file manager for browsing directories, moving, renaming, copying, and deleting media files.</td>
+                        <td><a href="/file_home" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/gc_logs" class="route-badge">/gc_logs</a> / <a href="/gc_plot" class="route-badge">/gc_plot</a></td>
+                        <td><span class="func-name">show_gc_logs() / gc_plot()</span></td>
+                        <td class="func-desc">Real-time Python garbage collection monitoring thread tracking object counts, memory usage, and memory leak plots.</td>
+                        <td><a href="/gc_logs" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/view_log" class="route-badge">/view_log</a></td>
+                        <td><span class="func-name">view_log()</span></td>
+                        <td class="func-desc">Live system log inspector displaying recent server output, process traces, and background execution errors.</td>
+                        <td><a href="/view_log" class="btn-launch">Open ↗</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="/edit_description" class="route-badge">/edit_description</a></td>
+                        <td><span class="func-name">edit_description()</span></td>
+                        <td class="func-desc">Live in-browser editor allowing developers to update and save the HTML source of this documentation page.</td>
+                        <td><a href="/edit_description" class="btn-launch">Edit ↗</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Media Studio &bull; High-Performance Media Processing & AI Composition Engine &bull; Updated September 2026</p>
+    </div>
+</div>
+
+<script>
+function filterFunctions() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let tables = document.querySelectorAll(".func-table");
+
+    tables.forEach(table => {
+        let trs = table.querySelectorAll("tbody tr");
+        let visibleCount = 0;
+
+        trs.forEach(tr => {
+            let text = tr.innerText.toLowerCase();
+            if (text.includes(input)) {
+                tr.style.display = "";
+                visibleCount++;
+            } else {
+                tr.style.display = "none";
+            }
+        });
+
+        // Hide entire module card if no rows match
+        let card = table.closest(".module-card");
+        if (card) {
+            card.style.display = (visibleCount > 0 || input === "") ? "" : "none";
+        }
+    });
+}
+</script>
+
 </body>
 </html>
-<pre>Application Overview
-    Application Overview
-This Flask-based application is a versatile tool for image and video processing, particularly geared towards creating, manipulating, and blending images for various creative projects. The application supports multiple functionalities, including image uploads, grayscale and binary mask generation, image blending, and video frame extraction. It's designed to provide a smooth user experience for managing and processing media files within a structured web interface.
-
-Key Features
-Image Uploading and Storage:
-
-Users can upload images in various formats (PNG, JPG, JPEG, GIF) through a user-friendly web interface.
-Uploaded images are securely stored in designated directories (static/archived-images), ensuring easy access and management.
-Uploaded images are automatically organized by upload time, with the most recent images displayed first.
-Mask Generation:
-
-The application allows users to create masks for images using two different methods:
-Grayscale Masking: Converts an image to grayscale and uses it as a mask for blending purposes.
-Binary Masking: Converts an image to a binary format by calculating the mean pixel value and using it as a threshold. The resulting binary mask can be inverted for alternative effects.
-These masks are saved in the static/archived-masks directory and can be applied to other images within the application.
-Image Blending:
-
-Users can blend two images using a selected mask (either grayscale or binary) with adjustable opacity settings.
-The blending process is performed using the Pillow library, and the final blended image is saved in the static/archived-store directory.
-The application ensures that the dimensions of all images involved in blending are consistent by resizing them to a standard size (512x768 pixels).
-Video Frame Extraction:
-
-The application can extract random frames from a video file, enabling users to generate a series of images from their video content.
-Extracted frames are saved in the static/archived-images directory for further manipulation or use in blending processes.
-Image Selection and Mask Application:
-
-Users can select images for further processing, such as applying masks or blending with other images.
-The application supports a selection workflow that allows users to preview and choose their desired images and masks through an intuitive web interface.
-Logging and Debugging:
-
-The application is equipped with a robust logging system that tracks actions and errors throughout the execution. Logs are saved to a file (exp_log.txt), providing detailed insights into the application’s behavior for debugging and monitoring purposes.
-Subprocess Integration:
-
-Certain features, like refreshing images or videos, are handled by external Python scripts. These scripts are executed through subprocess calls, allowing the application to manage complex tasks without blocking the main process.
-This modular approach ensures that the application remains responsive and can handle additional processing in the background.
-Web Interface and Routing:
-
-The application provides a clean and organized web interface, allowing users to navigate between different functionalities, such as uploading files, selecting images, creating masks, and viewing results.
-All major actions are linked to specific routes (/upload, /blend_images, /get_video_images, etc.), making the application easy to extend and maintain.
-Use Cases
-Creative Projects: Ideal for artists and designers who want to experiment with image blending and masking techniques to create unique visual compositions.
-Video Processing: Useful for content creators who need to extract and manipulate frames from their video files for promotional materials or other purposes.
-Web-Based Media Management: Provides a centralized platform for managing, processing, and storing images and videos in a structured and organized manner.
-Conclusion
-This application serves as a comprehensive toolkit for image and video processing, blending artistic creativity with technical precision. Whether you are working on a digital art project, creating promotional content, or simply experimenting with visual effects, this application offers the tools and flexibility you need to bring your ideas to life. With its user-friendly interface, versatile functionalities, and robust backend processing, the application empowers users to explore new possibilities in image manipulation and content creation.</pre>

@@ -1,4 +1,4 @@
-#!/home/jack/miniconda3/envs/cloned_base/bin/python
+#!/usr/bin/env python3
 import os
 import subprocess
 import random
@@ -76,7 +76,9 @@ def diag_trans(DIR,output_file):
 
     subprocess.run(concat_cmd)
     uid = str(uuid.uuid4())  # Generate a unique ID using uuid
-    mp4_file =  f"/home/jack/Desktop/HDD500/collections/vids/{uid}.mp4"
+    out_dir = "static/output_videos"
+    os.makedirs(out_dir, exist_ok=True)
+    mp4_file = os.path.join(out_dir, f"{uid}.mp4")
     shutil.copyfile(output_file, mp4_file) 
     print(f"Video created: {output_file}")
     print(f"Video copied: {mp4_file}")

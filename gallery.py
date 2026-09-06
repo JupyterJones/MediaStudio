@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/home/jack/Desktop/Kokoro-TTS-Pause/venv/bin/python
 import os
 import random
 import shutil

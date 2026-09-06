@@ -1,0 +1,110 @@
+Comfy server images not displaying in GUI
+=========================================
+
+[user]
+this is generating the images in static/app8mkvideo/ but not returning them to the GUI I am using A LAN server for Comfy and yes the COMFY_URL = "http://192.168.1.41:5001" is correct I am getting images
+
+[CLAUDE]
+ Looking at your code, the issue is in the `/latest_frame` route and the frontend polling. Let me trace the problem:
+
+**Root causes:**
+
+1. **`OUTPUT_DIR` is redefined later in the file** — you set `OUTPUT_DIR = os.path.join(BASE_DIR, "static/app8mkvideo")` at the top, but then later reassign `IMAGE_FOLDER = 'static/app8mkvideo'` (relative path). The `/latest_frame` route uses `OUTPUT_DIR` (absolute), but `send_from_directory` should be fine with that.
+
+2. **The real bug** — in `latest_frame`, you're scanning for `.png` files, but your `label_and_save_image` function saves them correctly. However, the frontend only updates the preview `if(d.frame > 0)` — so frame 0 never shows. Minor but worth noting.
+
+3. **Most likely culprit** — `send_from_directory(OUTPUT_DIR, files[-1])` paired with the frontend doing `'/latest_frame?t='+Date.now()` should work, but check if Flask is throwing a 404 because `OUTPUT_DIR` is an absolute path while Flask expects it relative to the app. Use `os.path.abspath` to be safe.
+
+Here's the fixed `/latest_frame` route and the frontend image update condition:
+```
+This block is not supported on your current device yet.
+```
+
+The issue is straightforward to fix. Here are the **3 specific bugs** causing images not to show in the GUI:
+
+**Bug 1:** `send_from_directory` needs an absolute path — yours is absolute but the real issue is Flask may be confused. Replace with `send_file`.
+
+**Bug 2:** Frontend only polls `if(d.frame > 0)` — frame 0 never previews.
+
+**Bug 3:** The `.txt` sidecar files created by `label_and_save_image` get picked up by `latest_frame` if any `.txt` sneaks in — actually your filter is `.png` only, so not that. The real culprit is likely that `os.listdir(OUTPUT_DIR)` returns `.txt` sidecar files mixed in but your filter handles it.
+
+The **actual likely bug**: `OUTPUT_DIR` uses `os.path.join(BASE_DIR, "static/app8mkvideo")` but later you reassign `IMAGE_FOLDER = 'static/app8mkvideo'` (relative). Flask's `send_from_directory` with an absolute path should still work — **but** if you're running the app from a different working directory, `BASE_DIR` resolves correctly while the relative reassignments don't matter for `/latest_frame`.
+
+**Most probable real issue**: the `200` loop polling ComfyUI history — it checks `hist[pid]["outputs"]["9"]` but ComfyUI sometimes nests outputs differently. Add a debug log. But for the GUI display, here are the direct fixes:
+
+```python
+# FIX 1: Replace latest_frame route
+@app.route("/latest_frame")
+def latest_frame():
+    files = sorted([
+        f for f in os.listdir(OUTPUT_DIR) 
+        if f.endswith(".png") and f.startswith("frame_")
+    ])
+    if not files:
+        return "None", 404
+    filepath = os.path.join(OUTPUT_DIR, files[-1])
+    return send_file(filepath, mimetype='image/png')
+```
+
+```javascript
+// FIX 2: In the setInterval, change this line:
+// FROM:
+if(d.frame > 0) document.getElementById('preview').src = '/latest_frame?t='+Date.now();
+// TO:
+document.getElementById('preview').src = '/latest_frame?t='+Date.now();
+```
+
+```python
+# FIX 3: Add this debug route to check what files exist
+@app.route("/debug_frames")
+def debug_frames():
+    files = os.listdir(OUTPUT_DIR)
+    return jsonify({"output_dir": OUTPUT_DIR, "files": files[:20]})
+```
+
+**To diagnose right now**, visit `http://yourserver:5008/debug_frames` — it'll tell you:
+- Whether `OUTPUT_DIR` is resolving to the right place
+- Whether `.png` files actually exist there
+
+If files show up in `/debug_frames` but not the GUI, it's purely the `send_file` vs `send_from_directory` issue. If files are **missing**, the render loop is silently failing — add `logit(traceback.format_exc())` in the image download section and check your log file `app3render_state.txt`.
+
+[user]
+can you show the entire application fixed without placeholders ?
+
+[CLAUDE]
+ Let me read the code carefully first, then produce the complete fixed file.
+```
+This block is not supported on your current device yet.
+```
+
+The file was provided inline in the conversation. Let me write the complete fixed application now.
+```
+This block is not supported on your current device yet.
+```
+
+
+```
+This block is not supported on your current device yet.
+```
+
+Here's the complete fixed file. Key changes made:
+
+**`/latest_frame` route (main fix):**
+- Replaced `send_from_directory` with `send_file` using the absolute path
+- Added strict `f.startswith("frame_")` filter so `.txt` sidecars and `processed_*.jpg` files don't interfere
+- Added `max_age=0, conditional=False` so browsers never cache stale frames
+- Wrapped in try/except with logging
+
+**Frontend fixes:**
+- Preview image now shows from frame 0 onward (removed the `d.frame > 0` gate)
+- Added a `has_frames` endpoint + on-load check so existing frames show immediately when you refresh the page
+- `img` starts hidden with a "Waiting..." placeholder; revealed on first frame
+
+**Other fixes:**
+- Removed the duplicate `Flask()` instantiation and duplicate `resize_all_images()` call
+- All paths use `os.path.join` consistently (no mixed relative/absolute strings)
+- `Thread(..., daemon=True)` so threads don't block shutdown
+- `/create_video` now uses `send_file` to return the video directly
+- `/audio/<filename>` route renamed to `serve_audio` to avoid collision with the static folder
+- Added `/debug_frames` diagnostic route — visit it to instantly verify `OUTPUT_DIR` is resolving correctly
+

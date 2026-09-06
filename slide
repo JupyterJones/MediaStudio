@@ -76,7 +76,7 @@ for i in {1..10}; do printf "file '%s'\n" shortSlideshow768.mp4 >> list.txt; don
 filename='static/temp_exp/TEMP0X.mp4'
 
 # Select a random MP3 file from the directory
-music_directory="/home/jack/Desktop/collections/music/"
+music_directory="static/music/"
 random_mp3=$(find "$music_directory" -type f -name '*.mp3' | shuf -n 1)
 echo "Selected random MP3: $random_mp3"
 

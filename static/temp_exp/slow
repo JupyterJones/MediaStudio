@@ -1,4 +1,0 @@
-ffmpeg -i "$1" \
--vf "setpts=2.0*PTS" \
--af "atempo=0.5" \
-"${1%.*}_slow.mp4"

@@ -1,0 +1,29 @@
+Changing Font Size in Privacy Policy
+====================================
+
+[user]
+how do I change the font size  Privacy Policy
+
+[CLAUDE]
+ To change the font size in a Privacy Policy document, you can follow these steps depending on what platform or format you're working with:
+
+**For a website/HTML:**
+- Use CSS to set the font size, like `font-size: 14px;` or `font-size: 1rem;`
+- You can target specific elements like paragraphs or headings
+
+**For a Word document:**
+- Highlight the text you want to change
+- Use the font size dropdown in the toolbar or press Ctrl+Shift+> to increase, Ctrl+Shift+< to decrease
+- For the whole document, press Ctrl+A to select all text first
+
+**For Google Docs:**
+- Select your text
+- Use the font size dropdown in the toolbar
+- Or use Format → Text → Font size in the menu
+
+**For PDF editing:**
+- You'll need professional PDF editing software like Adobe Acrobat Pro
+- Select the text and use the editing tools to modify font properties
+
+If you need more specific guidance, could you tell me which platform or file format you're working with for your Privacy Policy?
+

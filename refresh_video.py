@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import glob
 import random
 from PIL import Image
@@ -150,7 +151,7 @@ def add_title_image(video_path, hex_color="#A52A2A"):
     composite_clip = composite_clip.set_duration(video_clip.duration)
 
     # Load a random background music
-    mp3_files = glob.glob("/mnt/HDD500/collections/music_long/*.mp3")
+    mp3_files = glob.glob("/home/jack/Desktop/HDD500/collections/music_long/*.mp3")
     random.shuffle(mp3_files)
     mp_music = random.choice(mp3_files)
 
